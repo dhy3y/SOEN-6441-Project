@@ -2,16 +2,16 @@ package model.property;
 
 abstract class Property {
 
-    private String streetName;
-    private String streetNumber;
-    private String city;
-    private String postalCode;
-    private String country;
+    protected String streetName;
+    protected String plotNumber;
+    protected String city;
+    protected String postalCode;
+    protected String country;
 
 
-    public Property(String streetName, String streetNumber, String city, String postalCode, String country) {
+    public Property(String streetName, String plotNumber, String city, String postalCode, String country) {
         this.streetName = streetName;
-        this.streetNumber = streetNumber;
+        this.plotNumber = plotNumber;
         this.city = city;
         this.postalCode = postalCode;
         this.country = country;
@@ -26,12 +26,12 @@ abstract class Property {
         this.streetName = streetName;
     }
 
-    public String getStreetNumber() {
-        return streetNumber;
+    public String getPlotNumber() {
+        return plotNumber;
     }
 
-    public void setStreetNumber(String streetNumber) {
-        this.streetNumber = streetNumber;
+    public void setPlotNumber(String plotNumber) {
+        this.plotNumber = plotNumber;
     }
 
     public String getCity() {
