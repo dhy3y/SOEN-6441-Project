@@ -6,12 +6,12 @@ import java.sql.Date;
  * LeaseModel
  */
 public class LeaseModel {
-    String leaseID;
-    String propertyID;
-    String tenantID;
-    Date startDate;
-    Date endDate;
-    double amount;
+    private String leaseID;
+    private String propertyID;
+    private String tenantID;
+    private Date startDate;
+    private Date endDate;
+    private double amount;
 
     public LeaseModel(String leaseID, String propertyID, String tenantID, Date startDate, Date endDate, double amount) {
         this.leaseID = leaseID;
