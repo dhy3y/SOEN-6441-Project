@@ -3,8 +3,8 @@ package model;
 import java.util.ArrayList;
 
 public class TenantModel {
-    String tenantID;
-    String tenantName;
+    private String tenantID;
+    private String tenantName;
     ArrayList<String> ownedLease = new ArrayList<String>();
     ArrayList<String> interestedProperty = new ArrayList<String>();
     ArrayList<String> notification = new ArrayList<String>();
@@ -33,27 +33,24 @@ public class TenantModel {
         this.tenantName = tenantName;
     }
 
-    public ArrayList<String> getOwnedLease() {
-        return ownedLease;
+    public void getOwnedLease() {
     }
 
-    public void setOwnedLease(ArrayList<String> ownedLease) {
-        this.ownedLease = ownedLease;
+    public void setOwnedLease(String leaseID) {
+        ownedLease.add(leaseID);
     }
 
-    public ArrayList<String> getInterestedProperty() {
-        return interestedProperty;
+    public void getInterestedProperty() {
     }
 
-    public void setInterestedProperty(ArrayList<String> interestedProperty) {
-        this.interestedProperty = interestedProperty;
+    public void setInterestedProperty(String leaseID) {
+        interestedProperty.add(leaseID);
     }
 
-    public ArrayList<String> getNotification() {
-        return notification;
+    public void getNotification() {
     }
 
-    public void setNotification(ArrayList<String> notification) {
-        this.notification = notification;
+    public void setNotification(String newNotification) {
+        notification.add(newNotification);
     }
 }
