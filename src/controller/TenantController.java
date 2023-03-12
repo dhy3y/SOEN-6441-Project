@@ -48,7 +48,10 @@ public class TenantController {
         HashMap<String, TenantModel> tenantList = dbInstance.getTenants();
 
         tenantList.get(newLease.getTenantID()).setOwnedLeases(propertyID);
+    }
 
-
+    public void addInterestedProperty(String propertyID, String tenantID) {
+        HashMap<String, TenantModel> tenantList = dbInstance.getTenants();
+        tenantList.get(tenantID).setInterestedProperties(propertyID);
     }
 }

@@ -1,8 +1,10 @@
 package controller.property;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import database.RentalDatabase;
+import model.TenantModel;
 import model.property.*;
 import view.property.*;
 
@@ -41,6 +43,11 @@ public class PropertyController {
 
     public void rentProperty(String propertyType,String propertyID,String tenantID) {
         dbInstance.getProperties().get(propertyType).get(propertyID).setRented(Boolean.TRUE);
+    }
+
+    public void vacantProperty(String propertyType,String propertyID) {
+        dbInstance.getProperties().get(propertyType).get(propertyID).setRented(Boolean.FALSE);
+        notifyInterestedTenants(propertyID);
     }
 
     public boolean isRentedOrNot(String propertyType,String propertyID) {
@@ -84,8 +91,6 @@ public class PropertyController {
             }
 
         }
-
-
     }
 
     private void printPropertyDetail( HashMap.Entry<String, Property> propertySet){
@@ -97,6 +102,18 @@ public class PropertyController {
         }
         else if(propertySet.getValue() instanceof HouseModel) {
             houView.printHouseDetails(propertySet.getKey(), propertySet.getValue());
+        }
+    }
+
+
+    public void notifyInterestedTenants(String propertyID) {
+        HashMap<String, HashMap<String, Property>> propertyList = dbInstance.getProperties();
+        HashMap<String, TenantModel> allTenants = dbInstance.getTenants();
+        Property property = propertyList.get(propertyID.substring(0,1)).get(propertyID);
+        ArrayList<String> interestedTenants = property.getInterestedTenants();
+        
+        for(String tenantID : interestedTenants) {
+            allTenants.get(tenantID).setNotificationList(propertyID + " is now available! \n");
         }
     }
 

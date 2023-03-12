@@ -78,14 +78,13 @@ public abstract class Property {
         return interestedTenants;
     }
 
-    public void setInterestedTenants(String tenant) {
+    public void attachInterestedTenants(String tenant) {
         interestedTenants.add(tenant);
     }
 
-    public void removeInterestedTenant(String tenant) {
+    public void detachInterestedTenant(String tenant) {
         interestedTenants.remove(tenant);
     }
-
 
     abstract String generateAddress();
 }

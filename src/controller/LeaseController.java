@@ -42,8 +42,7 @@ public class LeaseController{
                 view.printLeaseDetails(entry.getKey(),entry.getValue());
             }
         }
-
-
-
     }
+
+    
 }
