@@ -2,16 +2,14 @@ package model.property;
 
 public class CondoModel extends Property{
     private String unitNumber;
-    private String condoID;
     private int numberOfBedroom;
     private int numberOfBathroom;
 
     private double squareFoot;
 
-    public CondoModel( String condoID, String unitNumber,String plotNumber,String streetName, String city, String postalCode, String country, int numberOfBedroom, int numberOfBathroom, double squareFoot) {
+    public CondoModel(String unitNumber,String plotNumber,String streetName, String city, String postalCode, String country, int numberOfBedroom, int numberOfBathroom, double squareFoot) {
         super(streetName, plotNumber, city, postalCode, country);
         this.unitNumber = unitNumber;
-        this.condoID = condoID;
         this.numberOfBedroom = numberOfBedroom;
         this.numberOfBathroom = numberOfBathroom;
         this.squareFoot = squareFoot;
@@ -28,14 +26,6 @@ public class CondoModel extends Property{
 
     public void setUnitNumber(String unitNumber) {
         this.unitNumber = unitNumber;
-    }
-
-    public String getCondoID() {
-        return condoID;
-    }
-
-    public void setCondoID(String condoID) {
-        this.condoID = condoID;
     }
 
     public int getNumberOfBedroom() {

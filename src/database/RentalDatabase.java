@@ -1,16 +1,28 @@
-import java.util.HashMap;
-import java.util.Scanner;
+package database;
 
-import model.LeaseModel;
-import model.TenantModel;
+import java.util.HashMap;
+
+import model.*;
 import model.property.*;
 
-public class RentalManagementSystem {
-    public static HashMap<String, HashMap<String, Property>> propertyDetails = new HashMap<String, HashMap<String, Property>>();
-    public static HashMap<String, TenantModel> tenantDetails = new HashMap<String, TenantModel>();
-    public static HashMap<String, LeaseModel> leaseDetails = new HashMap<String, LeaseModel>();
+public class RentalDatabase {
+
+    private static RentalDatabase instance = new RentalDatabase();
+
+    private HashMap<String, HashMap<String, Property>> propertyDetails = new HashMap<String, HashMap<String, Property>>();
+    private HashMap<String, TenantModel> tenantDetails = new HashMap<String, TenantModel>();
+    private HashMap<String, LeaseModel> leaseDetails = new HashMap<String, LeaseModel>();
+
+    private RentalDatabase() {}
+
+    public static RentalDatabase getInstance() {
+        if(instance == null)
+            return new RentalDatabase();
+
+        return instance;
+    }
     
-    void addProperty(Property p1) {
+    public void addProperty(Property p1) {
         if(p1 instanceof ApartmentModel) {
             HashMap<String, Property> apartment = new HashMap<>();
             String id = getPropertyID("APT");
@@ -31,23 +43,23 @@ public class RentalManagementSystem {
         }
     }
 
-    HashMap<String, HashMap<String, Property>> getProperties(){
+    public HashMap<String, HashMap<String, Property>> getProperties(){
         return propertyDetails;
     }
 
-    void addTenant(TenantModel t1) {
+    public void addTenant(TenantModel t1) {
         tenantDetails.put(getTenantID(), t1);
     }
 
-    HashMap<String, TenantModel> getTenants() {
+    public HashMap<String, TenantModel> getTenants() {
         return tenantDetails;
     }
 
-    void addLease(LeaseModel l1) {
+    public void addLease(LeaseModel l1) {
         leaseDetails.put(getLeaseID(), l1);
     }
 
-    HashMap<String, LeaseModel> getLeases() {
+    public HashMap<String, LeaseModel> getLeases() {
         return leaseDetails;
     }
 
@@ -64,4 +76,3 @@ public class RentalManagementSystem {
     }
 
 }
-

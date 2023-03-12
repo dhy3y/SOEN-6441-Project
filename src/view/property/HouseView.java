@@ -3,16 +3,14 @@ import java.util.Scanner;
 
 import model.property.*;
 
-public class ApartmentView {
-
-    public Property getApartmentDetails() {
+public class HouseView {
+    
+    public Property getHouseDetails() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter apartment number : ");
-        String apartmentNumber = sc.next();
+        System.out.println("Enter Street name : ");
+        String streetName = sc.next();
         System.out.println("Enter Plot number : ");
         String plotNumber = sc.next();
-        System.out.println("Enter Street name : ");
-        String streetName = sc.nextLine();
         System.out.println("Enter city : ");
         String city = sc.next();
         System.out.println("Enter postal code : ");
@@ -25,11 +23,11 @@ public class ApartmentView {
         int numberOfBathroom = sc.nextInt();
         System.out.println("Enter square foot : ");
         double squareFoot = sc.nextDouble();
-        Property p1 = new ApartmentModel(apartmentNumber, plotNumber, streetName, city, postalCode, country, numberOfBedroom, numberOfBathroom, squareFoot);
+        Property p1 = new HouseModel(streetName, plotNumber, city, postalCode, country, numberOfBedroom, numberOfBathroom, squareFoot);
         return p1;
     }
 
-    public void printApartmentDetails(String ID, Property p1) {
+    public void printHouseDetails(String ID, Property p1) {
 
         System.out.println(p1);
     }

@@ -3,15 +3,13 @@ package model.property;
 public class ApartmentModel extends Property {
 
     private String apartmentNumber;
-    private String apartmentID;
     private int numberOfBedroom;
     private int numberOfBathroom;
     private double squareFoot;
 
-    public ApartmentModel(String apartmentID, String apartmentNumber, String plotNumber,String streetName,  String city, String postalCode, String country, int numberOfBedroom, int numberOfBathroom, double squareFoot) {
+    public ApartmentModel(String apartmentNumber, String plotNumber,String streetName,  String city, String postalCode, String country, int numberOfBedroom, int numberOfBathroom, double squareFoot) {
         super(streetName, plotNumber, city, postalCode, country);
         this.apartmentNumber = apartmentNumber;
-        this.apartmentID = apartmentID;
         this.numberOfBedroom = numberOfBedroom;
         this.numberOfBathroom = numberOfBathroom;
         this.squareFoot = squareFoot;
@@ -29,14 +27,6 @@ public class ApartmentModel extends Property {
 
     public void setApartmentNumber(String apartmentNumber) {
         this.apartmentNumber = apartmentNumber;
-    }
-
-    public String getApartmentID() {
-        return apartmentID;
-    }
-
-    public void setApartmentID(String apartmentID) {
-        this.apartmentID = apartmentID;
     }
 
     public int getNumberOfBedroom() {
