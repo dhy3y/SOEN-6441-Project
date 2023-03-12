@@ -1,12 +1,19 @@
 import java.util.Scanner;
 
+import controller.LeaseController;
+import controller.TenantController;
 import controller.property.PropertyController;
 
-public class Driver {
+public class RentalManagementSystem {
 
         public static void main(String[] args) {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Welcome to the Rental Management System");
+
+            TenantController tenantController = new TenantController();
+            PropertyController propertyController = new PropertyController();
+            LeaseController leaseController = new LeaseController();
+
+            System.out.println("-----Welcome to the Rental Management System-----\n\n");
 
             while (true) {
                 //c - Various operation which user want to perform
@@ -26,15 +33,15 @@ public class Driver {
                     case 1:
                         printTypesOfProperty();
                         int type = scanner.nextInt();
-                        PropertyController controller = new PropertyController();
+
                         if(type == 1) {
-                            controller.addApartment();
+                            propertyController.addApartment();
                         }
                         else if(type == 2) {
-                            controller.addCondo();
+                            propertyController.addCondo();
                         }
                         else if(type == 3) {
-                            controller.addHouse();
+                            propertyController.addHouse();
                         }
                         else System.out.println("Wrong input");
                         break;
@@ -45,11 +52,11 @@ public class Driver {
 
                         break;
                     case 4:
-                        PropertyController controller2 = new PropertyController();
-                        controller2.displayProperties();
+                        propertyController.displayProperties();
                         break;
 
                     case 5:
+                        tenantController.displayTenant();
 
                         break;
                     case 6:
@@ -58,7 +65,7 @@ public class Driver {
                     case 7:
 
                         break;
-                    case 8:
+                    case 8: leaseController.displayLeases();
 
                         break;
                     case 9:

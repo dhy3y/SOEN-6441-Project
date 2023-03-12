@@ -20,8 +20,9 @@ public class TenantView {
         return new TenantModel(tenantName);
     }
 
-    public void printTenantDetails(LeaseModel l1) {
-        System.out.println(l1);
+    public void printTenantDetails(String tenantID,TenantModel tenant) {
+        System.out.println("Lease ID : "+tenantID);
+        System.out.println(tenant);
     }
 
 }

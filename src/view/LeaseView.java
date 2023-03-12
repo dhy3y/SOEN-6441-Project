@@ -7,6 +7,8 @@ import utils.CustomDate;
 import java.util.Calendar;
 import java.util.Scanner;
 
+
+
 public class LeaseView {
 
     public LeaseModel getLeaseDetails() {
@@ -32,7 +34,8 @@ public class LeaseView {
         return new LeaseModel(propertyID,tenantID,startDate,endDate,amount);
     }
 
-    public void printLeaseDetails(LeaseModel l1) {
-        System.out.println(l1);
+    public void printLeaseDetails(String leaseID,LeaseModel lease) {
+        System.out.println("Lease ID : "+leaseID);
+        System.out.println(lease);
     }
 }

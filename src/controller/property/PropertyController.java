@@ -12,6 +12,8 @@ public class PropertyController {
     private CondoView conView;
     private HouseView houView;
 
+    RentalDatabase dbInstance = RentalDatabase.getInstance();
+
 
     public PropertyController() {
         aptView = new ApartmentView();
@@ -21,20 +23,17 @@ public class PropertyController {
 
     public void addApartment() {
         Property property = aptView.getApartmentDetails();
-        RentalDatabase instance = RentalDatabase.getInstance();
-        instance.addProperty(property);
+        dbInstance.addProperty(property);
     }
 
     public void addCondo() {
         Property property = conView.getCondoDetails();
-        RentalDatabase instance = RentalDatabase.getInstance();
-        instance.addProperty(property);
+        dbInstance.addProperty(property);
     }
 
     public void addHouse() {
         Property property = houView.getHouseDetails();
-        RentalDatabase instance = RentalDatabase.getInstance();
-        instance.addProperty(property);
+        dbInstance.addProperty(property);
     }
 
     public void displayProperties() {
