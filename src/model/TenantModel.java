@@ -63,4 +63,14 @@ public class TenantModel {
     public void removeNotification(String notification) {
         notificationList.remove(notification);
     }
+
+    @Override
+    public String toString() {
+        return "TenantModel{" +
+                "tenantName='" + tenantName + '\'' +
+                ", ownedLeases=" + ownedLeases +
+                ", interestedProperties=" + interestedProperties +
+                ", notificationList=" + notificationList +
+                '}';
+    }
 }
