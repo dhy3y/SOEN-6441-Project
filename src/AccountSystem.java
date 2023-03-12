@@ -15,7 +15,7 @@ public class AccountSystem {
         return instance;
     }
 
-    public void addLease(String leaseID, boolean rentPaidOrNot) {
+    public void addAccount(String leaseID, boolean rentPaidOrNot) {
         rentDetails.put(leaseID, rentPaidOrNot);
     }
 

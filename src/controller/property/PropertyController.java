@@ -1,8 +1,11 @@
 package controller.property;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import database.RentalDatabase;
+import model.LeaseModel;
 import model.property.*;
 import view.property.*;
 
@@ -36,23 +39,65 @@ public class PropertyController {
         dbInstance.addProperty(property);
     }
 
-    public void displayProperties() {
-        RentalDatabase instance = RentalDatabase.getInstance();
-        HashMap<String, HashMap<String, Property>> properties = instance.getProperties();
+    public void rentProperty(String propertyType,String propertyID,String tenantID) {
+        dbInstance.getProperties().get(propertyType).get(propertyID).setRented(Boolean.TRUE);
+    }
 
-        for(HashMap.Entry<String, HashMap<String, Property>> set : properties.entrySet()) {
-            for(HashMap.Entry<String, Property> set2 : properties.get(set.getKey()).entrySet()) {
-                if(set2.getValue() instanceof ApartmentModel) {
-                    aptView.printApartmentDetails(set2.getKey(), set2.getValue());
-                }
-                else if(set2.getValue() instanceof CondoModel) {
-                    conView.printCondoDetails(set2.getKey(), set2.getValue());
-                }
-                else if(set2.getValue() instanceof HouseModel) {
-                    houView.printHouseDetails(set2.getKey(), set2.getValue());
-                }
+    public boolean isRentedOrNot(String propertyType,String propertyID) {
+       return dbInstance.getProperties().get(propertyType).get(propertyID).getRented();
+    }
+
+
+    public void displayProperties() {
+        HashMap<String, HashMap<String, Property>> propertyList = dbInstance.getProperties();
+
+        for(HashMap.Entry<String, HashMap<String, Property>> propertySet : propertyList.entrySet()) {
+            for(HashMap.Entry<String, Property> singleProperty : propertyList.get(propertySet.getKey()).entrySet()) {
+                printPropertyDetail(singleProperty);
             }
         }
     }
-    
+
+    public void displayRentedProperties() {
+        HashMap<String, HashMap<String, Property>> propertyList = dbInstance.getProperties();
+
+        if(propertyList.isEmpty()) System.out.println("\n It's Empty Here !\n ");
+        else{
+            for(HashMap.Entry<String, HashMap<String, Property>> set : propertyList.entrySet()) {
+                for(HashMap.Entry<String, Property> singleProperty : propertyList.get(set.getKey()).entrySet()) {
+                    if(singleProperty.getValue().getRented()== Boolean.TRUE)  printPropertyDetail(singleProperty);
+                }
+            }
+
+        }
+    }
+
+    public void displayVacantProperties() {
+        HashMap<String, HashMap<String, Property>> propertyList = dbInstance.getProperties();
+
+        if(propertyList.isEmpty()) System.out.println("\n It's Empty Here !\n ");
+        else{
+            for(HashMap.Entry<String, HashMap<String, Property>> set : propertyList.entrySet()) {
+                for(HashMap.Entry<String, Property> singleProperty : propertyList.get(set.getKey()).entrySet()) {
+                    if(singleProperty.getValue().getRented()== Boolean.FALSE)  printPropertyDetail(singleProperty);
+                }
+            }
+
+        }
+
+
+    }
+
+    private void printPropertyDetail( HashMap.Entry<String, Property> propertySet){
+        if(propertySet.getValue() instanceof ApartmentModel) {
+            aptView.printApartmentDetails(propertySet.getKey(), propertySet.getValue());
+        }
+        else if(propertySet.getValue() instanceof CondoModel) {
+            conView.printCondoDetails(propertySet.getKey(), propertySet.getValue());
+        }
+        else if(propertySet.getValue() instanceof HouseModel) {
+            houView.printHouseDetails(propertySet.getKey(), propertySet.getValue());
+        }
+    }
+
 }

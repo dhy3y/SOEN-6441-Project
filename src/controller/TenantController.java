@@ -20,8 +20,8 @@ public class TenantController {
     }
 
     public void addTenant(){
-        dbInstance.addTenant(view.getTenantDetails());
-        System.out.println("Lease Added");
+         dbInstance.addTenant(view.getTenantDetails());
+
     }
 
     public void displayTenant(){

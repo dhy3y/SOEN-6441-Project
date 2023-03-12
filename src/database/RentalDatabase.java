@@ -47,8 +47,11 @@ public class RentalDatabase {
         return propertyDetails;
     }
 
+
     public void addTenant(TenantModel t1) {
-        tenantDetails.put(getTenantID(), t1);
+        String newTenantId=getTenantID();
+        tenantDetails.put(newTenantId, t1);
+        System.out.println("Tenant Added. ID : " + newTenantId);
     }
 
     public HashMap<String, TenantModel> getTenants() {

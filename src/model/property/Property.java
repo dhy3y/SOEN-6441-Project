@@ -1,5 +1,7 @@
 package model.property;
 
+import java.util.ArrayList;
+
 public abstract class Property {
 
     protected String streetName;
@@ -7,6 +9,9 @@ public abstract class Property {
     protected String city;
     protected String postalCode;
     protected String country;
+    protected Boolean rented;
+    protected ArrayList<String> interestedTenants;
+
 
 
     public Property(String streetName, String plotNumber, String city, String postalCode, String country) {
@@ -15,6 +20,8 @@ public abstract class Property {
         this.city = city;
         this.postalCode = postalCode;
         this.country = country;
+        this.rented=Boolean.FALSE;
+        this.interestedTenants = new ArrayList<String>();
     }
 
 
@@ -58,6 +65,27 @@ public abstract class Property {
         this.country = country;
     }
 
+
+    public Boolean getRented() {
+        return rented;
+    }
+
+    public void setRented(Boolean rented) {
+        this.rented = rented;
+    }
+
+    public ArrayList<String> getInterestedTenants() {
+        return interestedTenants;
+    }
+
+    public void setInterestedTenants(String tenant) {
+        interestedTenants.add(tenant);
+    }
+
+    public void removeInterestedTenant(String tenant) {
+        interestedTenants.remove(tenant);
+    }
+
+
     abstract String generateAddress();
-    
 }

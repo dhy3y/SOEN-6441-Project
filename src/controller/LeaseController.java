@@ -20,18 +20,18 @@ public class LeaseController{
         view = new LeaseView() ;
     }
 
-    public void addLease(){
-        dbInstance.addLease(view.getLeaseDetails());
-        System.out.println("Lease Added");
+    public LeaseModel addLease(String propertyID){
+        LeaseModel newLease = view.getLeaseDetails(propertyID);
+        dbInstance.addLease(newLease);
+        System.out.println("\n New Lease Created");
+        return newLease;
     }
 
     public void displayLeases(){
 
-
-
         HashMap<String, LeaseModel> LeaseList = dbInstance.getLeases();
 
-        if(LeaseList.isEmpty()) System.out.println("\n 8Its Empty Here !\n ");
+        if(LeaseList.isEmpty()) System.out.println("\n It's Empty Here !\n ");
         else{
             System.out.println("All Leases --->");
 

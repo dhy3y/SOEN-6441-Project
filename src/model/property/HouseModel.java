@@ -53,6 +53,7 @@ public class HouseModel extends Property{
             "\nCity : " + city +
             "\nPostal Code : " + postalCode +
             "\nCountry : " + country +
+                "\nRented : " + rented +
             "\nBedrooms : " + numberOfBedroom +
             "\nBathrooms : " + numberOfBathroom +
             "\nSquare foot : " + squareFoot + "\n";

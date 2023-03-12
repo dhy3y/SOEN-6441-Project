@@ -3,6 +3,7 @@ import java.util.Scanner;
 import controller.LeaseController;
 import controller.TenantController;
 import controller.property.PropertyController;
+import model.LeaseModel;
 
 public class RentalManagementSystem {
 
@@ -46,9 +47,47 @@ public class RentalManagementSystem {
                         else System.out.println("Wrong input");
                         break;
                     case 2:
-
+                        tenantController.addTenant();
                         break;
                     case 3:
+                        printTypesOfProperty();
+                        int choice2 = scanner.nextInt();
+                        String propertyType;
+
+                        if(choice2 == 1) {
+                            propertyType="APT";
+                        }
+                        else if(choice2 == 2) {
+                            propertyType="CON";
+                        }
+                        else if(choice2 == 3) {
+                           propertyType="HOU";
+                        }
+                        else{ System.out.println("\n Wrong Input"); break; }
+
+
+
+                        System.out.println("Enter Property Id: ");
+                        String propertyID= scanner.next();
+
+
+                        if( propertyController.isRentedOrNot(propertyType,propertyID) ){
+                            System.out.println("\n This property is already rented. " +
+                                    "\n\n Do you want to get notified when it will get vacant ?" +
+                                    "\n 1. Yes" +
+                                    "\n 2. No");
+                            int choice3 = scanner.nextInt();
+
+                            if(choice3==1){
+                                System.out.println("Tenant is Notified");
+                            }
+
+
+                        }
+                        else{
+                            LeaseModel newLease=leaseController.addLease(propertyID);
+                            propertyController.rentProperty(propertyType,newLease.getPropertyID(), newLease.getTenantID());
+                        }
 
                         break;
                     case 4:
@@ -60,9 +99,11 @@ public class RentalManagementSystem {
 
                         break;
                     case 6:
+                        propertyController.displayRentedProperties();
 
                         break;
                     case 7:
+                        propertyController.displayVacantProperties();
 
                         break;
                     case 8: leaseController.displayLeases();

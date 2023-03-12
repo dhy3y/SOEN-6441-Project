@@ -21,7 +21,7 @@ public class TenantView {
     }
 
     public void printTenantDetails(String tenantID,TenantModel tenant) {
-        System.out.println("Lease ID : "+tenantID);
+        System.out.println("Tenant ID : "+tenantID);
         System.out.println(tenant);
     }
 
