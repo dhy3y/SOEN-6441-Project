@@ -28,19 +28,23 @@ public class RentalDatabase {
             String id = getPropertyID("APT");
             apartment.put(id, p1);
             propertyDetails.put("APT", apartment);
+            System.out.println("Apartment added. ID : " + id);
         }
         else if(p1 instanceof CondoModel) {
             HashMap<String, Property> condo = new HashMap<>();
             String id = getPropertyID("CON");
             condo.put(id, p1);
             propertyDetails.put("CON", condo);
+            System.out.println("Condo added. ID : " + id);
         }
         else if(p1 instanceof HouseModel) {
             HashMap<String, Property> house = new HashMap<>();
             String id = getPropertyID("HOU");
             house.put(id, p1);
             propertyDetails.put("HOU", house);
+            System.out.println("House added. ID : " + id);
         }
+
     }
 
     public HashMap<String, HashMap<String, Property>> getProperties(){

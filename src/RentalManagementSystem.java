@@ -16,8 +16,11 @@ public class RentalManagementSystem {
 
             System.out.println("-----Welcome to the Rental Management System-----\n\n");
 
+            CLILoop:
             while (true) {
                 //c - Various operation which user want to perform
+                System.out.println();
+                System.out.println("------------------------------------------------------");
                 System.out.println("What do you want to do?");
                 System.out.println("1. Add a Property");
                 System.out.println("2. Add a tenant");
@@ -27,8 +30,10 @@ public class RentalManagementSystem {
                 System.out.println("6. Display rented units");
                 System.out.println("7. Display vacant units");
                 System.out.println("8. Display all leases");
-                System.out.println("9. Exit");
+                System.out.println("9. Delete a Lease");
+                System.out.println("10. Exit");
                 System.out.println("Please enter your choice >");
+
                 int choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
@@ -67,7 +72,7 @@ public class RentalManagementSystem {
 
 
 
-                        System.out.println("Enter Property Id: ");
+                        System.out.println("Enter Property ID: ");
                         String propertyID= scanner.next();
 
 
@@ -79,7 +84,10 @@ public class RentalManagementSystem {
                             int choice3 = scanner.nextInt();
 
                             if(choice3==1){
-                                System.out.println("Tenant is Notified");
+                                System.out.println("Enter Tenant ID: ");
+                                String tenantID = scanner.next();
+                                propertyController.addTenantAsObserver(propertyID,tenantID);
+                                System.out.println("Tenant added as Observer !");
                             }
 
 
@@ -111,8 +119,16 @@ public class RentalManagementSystem {
 
                         break;
                     case 9:
-
+                        System.out.println("Enter Lease ID: ");
+                        String leaseID = scanner.next();
+                        LeaseModel oldLease = leaseController.removeLease(leaseID);
+                        tenantController.removeLeaseFromTenant(oldLease);
+                        System.out.println("Lease removed successfully!");
+                        propertyController.vacantProperty(oldLease.getPropertyID());
                         break;
+                    
+                    case 10:
+                        break CLILoop;
 
                     default:
                         System.out.println("Enter valid input between 1 and 9");

@@ -26,27 +26,24 @@ public class PropertyController {
     public void addApartment() {
         Property property = aptView.getApartmentDetails();
         dbInstance.addProperty(property);
-        System.out.println("Apartment added!");
     }
 
     public void addCondo() {
         Property property = conView.getCondoDetails();
         dbInstance.addProperty(property);
-        System.out.println("Condo added!");
     }
 
     public void addHouse() {
         Property property = houView.getHouseDetails();
         dbInstance.addProperty(property);
-        System.out.println("House added!");
     }
 
     public void rentProperty(String propertyType,String propertyID,String tenantID) {
         dbInstance.getProperties().get(propertyType).get(propertyID).setRented(Boolean.TRUE);
     }
 
-    public void vacantProperty(String propertyType,String propertyID) {
-        dbInstance.getProperties().get(propertyType).get(propertyID).setRented(Boolean.FALSE);
+    public void vacantProperty(String propertyID) {
+        dbInstance.getProperties().get(getType(propertyID)).get(propertyID).setRented(Boolean.FALSE);
         notifyInterestedTenants(propertyID);
     }
 
@@ -109,12 +106,39 @@ public class PropertyController {
     public void notifyInterestedTenants(String propertyID) {
         HashMap<String, HashMap<String, Property>> propertyList = dbInstance.getProperties();
         HashMap<String, TenantModel> allTenants = dbInstance.getTenants();
-        Property property = propertyList.get(propertyID.substring(0,1)).get(propertyID);
+        Property property = propertyList.get(getType(propertyID)).get(propertyID);
         ArrayList<String> interestedTenants = property.getInterestedTenants();
+
+        if(interestedTenants.size() == 0) {
+            return;
+        }
         
         for(String tenantID : interestedTenants) {
-            allTenants.get(tenantID).setNotificationList(propertyID + " is now available! \n");
+            allTenants.get(tenantID).setNotificationList(propertyID + " is now available! ### ");
         }
+    }
+
+    public void addTenantAsObserver(String propertyID, String tenantID) {
+        HashMap<String, HashMap<String, Property>> propertyList = dbInstance.getProperties();
+        HashMap<String, TenantModel> allTenants = dbInstance.getTenants();
+
+
+
+        propertyList.get(getType(propertyID)).get(propertyID).attachInterestedTenants(tenantID);
+        allTenants.get(tenantID).setInterestedProperties(propertyID);
+    }
+
+    private String getType(String propertyID) {
+        if(propertyID.charAt(0) == 'A') {
+            return "APT";
+        }
+        if(propertyID.charAt(0) == 'C') {
+            return "CON";
+        }
+        if(propertyID.charAt(0) == 'H') {
+            return "HOU";
+        }
+        else return getType(propertyID);
     }
 
 }

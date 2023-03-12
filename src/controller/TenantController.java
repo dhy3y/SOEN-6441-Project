@@ -50,6 +50,12 @@ public class TenantController {
         tenantList.get(newLease.getTenantID()).setOwnedLeases(propertyID);
     }
 
+    public void removeLeaseFromTenant(LeaseModel lease) {
+        String propertyID = lease.getPropertyID();
+        HashMap<String, TenantModel> tenantList = dbInstance.getTenants(); 
+        tenantList.get(lease.getTenantID()).removeOwnedLease(propertyID);
+    }
+
     public void addInterestedProperty(String propertyID, String tenantID) {
         HashMap<String, TenantModel> tenantList = dbInstance.getTenants();
         tenantList.get(tenantID).setInterestedProperties(propertyID);

@@ -34,8 +34,8 @@ public class TenantModel {
         ownedLeases.add(leaseID);
     }
 
-    public void removeOwnedLease(String lease) {
-        ownedLeases.remove(lease);
+    public void removeOwnedLease(String leaseID) {
+        ownedLeases.remove(leaseID);
     }
 
 
@@ -43,12 +43,12 @@ public class TenantModel {
         return interestedProperties;
     }
 
-    public void setInterestedProperties(String leaseID) {
-        interestedProperties.add(leaseID);
+    public void setInterestedProperties(String propertyID) {
+        interestedProperties.add(propertyID);
     }
 
-    public void removeInterestedProperty(String property) {
-        interestedProperties.remove(property);
+    public void removeInterestedProperty(String propertyID) {
+        interestedProperties.remove(propertyID);
     }
 
     public ArrayList<String> getNotificationList() {

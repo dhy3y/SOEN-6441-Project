@@ -27,15 +27,22 @@ public class LeaseController{
         return newLease;
     }
 
+    public LeaseModel removeLease(String leaseID) {
+        HashMap<String, LeaseModel> leaseList = dbInstance.getLeases();
+        LeaseModel removedLease = leaseList.get(leaseID);
+        leaseList.remove(leaseID);
+        return removedLease;
+    }
+
     public void displayLeases(){
 
-        HashMap<String, LeaseModel> LeaseList = dbInstance.getLeases();
+        HashMap<String, LeaseModel> leaseList = dbInstance.getLeases();
 
-        if(LeaseList.isEmpty()) System.out.println("\n It's Empty Here !\n ");
+        if(leaseList.isEmpty()) System.out.println("\n It's Empty Here !\n ");
         else{
             System.out.println("All Leases --->");
 
-            Iterator<HashMap.Entry<String, LeaseModel>> iterator = LeaseList.entrySet().iterator();
+            Iterator<HashMap.Entry<String, LeaseModel>> iterator = leaseList.entrySet().iterator();
 
             while(iterator.hasNext()) {
                 Map.Entry<String, LeaseModel> entry = iterator.next();
