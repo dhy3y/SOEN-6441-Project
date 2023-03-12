@@ -59,4 +59,5 @@ public abstract class Property {
     }
 
     abstract String generateAddress();
+    
 }

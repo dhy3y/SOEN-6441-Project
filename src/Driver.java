@@ -46,7 +46,7 @@ public class Driver {
                         break;
                     case 4:
                         PropertyController controller2 = new PropertyController();
-                        
+                        controller2.displayProperties();
                         break;
 
                     case 5:

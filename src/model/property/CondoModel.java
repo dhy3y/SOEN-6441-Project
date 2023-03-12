@@ -51,5 +51,18 @@ public class CondoModel extends Property{
     public void setSquareFoot(double squareFoot) {
         this.squareFoot = squareFoot;
     }
+
+    @Override
+    public String toString() {
+        return "Unit no : " + unitNumber +
+            "\nPlot number : " + plotNumber + 
+            "\nStreet Name : " + streetName +
+            "\nCity : " + city +
+            "\nPostal Code : " + postalCode +
+            "\nCountry : " + country +
+            "\nBedrooms : " + numberOfBedroom +
+            "\nBathrooms : " + numberOfBathroom +
+            "\nSquare foot : " + squareFoot + "\n";
+    }
 }
 

@@ -64,6 +64,9 @@ public class RentalDatabase {
     }
 
     private String getPropertyID(String type) {
+        if(propertyDetails.get(type) == null) {
+            return type.substring(0,1) + 1;
+        }
         return type.substring(0,1) + (propertyDetails.get(type).size()+1) ;
     }
 

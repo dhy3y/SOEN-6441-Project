@@ -52,4 +52,17 @@ public class ApartmentModel extends Property {
     public void setSquareFoot(double squareFoot) {
         this.squareFoot = squareFoot;
     }
+
+    @Override
+    public String toString() {
+         return "Apartment no : " + apartmentNumber +
+            "\nPlot number : " + plotNumber + 
+            "\nStreet Name : " + streetName +
+            "\nCity : " + city +
+            "\nPostal Code : " + postalCode +
+            "\nCountry : " + country +
+            "\nBedrooms : " + numberOfBedroom +
+            "\nBathrooms : " + numberOfBathroom +
+            "\nSquare foot : " + squareFoot + "\n";
+    }
 }

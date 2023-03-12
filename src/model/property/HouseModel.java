@@ -45,4 +45,16 @@ public class HouseModel extends Property{
     public void setSquareFoot(double squareFoot) {
         this.squareFoot = squareFoot;
     }
+
+    @Override
+    public String toString() {
+        return "Plot number : " + plotNumber + 
+            "\nStreet Name : " + streetName +
+            "\nCity : " + city +
+            "\nPostal Code : " + postalCode +
+            "\nCountry : " + country +
+            "\nBedrooms : " + numberOfBedroom +
+            "\nBathrooms : " + numberOfBathroom +
+            "\nSquare foot : " + squareFoot + "\n";
+    }
 }

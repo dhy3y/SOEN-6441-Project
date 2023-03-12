@@ -11,10 +11,12 @@ public class CondoView {
         String unitNumber = sc.next();
         System.out.println("Enter Plot number : ");
         String plotNumber = sc.next();
+        sc.nextLine();
         System.out.println("Enter Street name : ");
         String streetName = sc.nextLine();
         System.out.println("Enter city : ");
         String city = sc.next();
+        sc.nextLine();
         System.out.println("Enter postal code : ");
         String postalCode = sc.nextLine();
         System.out.println("Enter country : ");
@@ -30,7 +32,7 @@ public class CondoView {
     }
 
     public void printCondoDetails(String ID,Property p1) {
-
+        System.out.println("ID : " +  ID);
         System.out.println(p1);
     }
 }
