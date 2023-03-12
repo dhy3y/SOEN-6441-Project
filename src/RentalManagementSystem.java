@@ -87,6 +87,7 @@ public class RentalManagementSystem {
                         else{
                             LeaseModel newLease=leaseController.addLease(propertyID);
                             propertyController.rentProperty(propertyType,newLease.getPropertyID(), newLease.getTenantID());
+                            tenantController.addLeaseToTenant(newLease);
                         }
 
                         break;

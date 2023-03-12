@@ -1,6 +1,7 @@
 package controller;
 
 import database.RentalDatabase;
+import model.LeaseModel;
 import model.TenantModel;
 import view.TenantView;
 
@@ -39,6 +40,15 @@ public class TenantController {
                 view.printTenantDetails(entry.getKey(), entry.getValue());
             }
         }
+
+    }
+
+    public void addLeaseToTenant(LeaseModel newLease) {
+        String propertyID = newLease.getPropertyID();
+        HashMap<String, TenantModel> tenantList = dbInstance.getTenants();
+
+        tenantList.get(newLease.getTenantID()).setOwnedLeases(propertyID);
+
 
     }
 }

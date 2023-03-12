@@ -1,11 +1,8 @@
 package controller.property;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import database.RentalDatabase;
-import model.LeaseModel;
 import model.property.*;
 import view.property.*;
 
@@ -27,16 +24,19 @@ public class PropertyController {
     public void addApartment() {
         Property property = aptView.getApartmentDetails();
         dbInstance.addProperty(property);
+        System.out.println("Apartment added!");
     }
 
     public void addCondo() {
         Property property = conView.getCondoDetails();
         dbInstance.addProperty(property);
+        System.out.println("Condo added!");
     }
 
     public void addHouse() {
         Property property = houView.getHouseDetails();
         dbInstance.addProperty(property);
+        System.out.println("House added!");
     }
 
     public void rentProperty(String propertyType,String propertyID,String tenantID) {
