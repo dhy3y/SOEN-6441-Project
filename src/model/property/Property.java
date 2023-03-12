@@ -1,6 +1,6 @@
 package model.property;
 
-abstract class Property {
+public abstract class Property {
 
     protected String streetName;
     protected String plotNumber;
