@@ -1,20 +1,19 @@
 package model;
 
-import java.sql.Date;
+import java.util.Calendar;
+
 
 /**
  * LeaseModel
  */
-public class LeaseModel {
-    private String leaseID;
+public class  LeaseModel {
     private String propertyID;
     private String tenantID;
-    private Date startDate;
-    private Date endDate;
+    private Calendar startDate;
+    private Calendar endDate;
     private double amount;
 
-    public LeaseModel(String leaseID, String propertyID, String tenantID, Date startDate, Date endDate, double amount) {
-        this.leaseID = leaseID;
+    public LeaseModel( String propertyID, String tenantID, Calendar startDate, Calendar endDate, double amount) {
         this.propertyID = propertyID;
         this.tenantID = tenantID;
         this.startDate = startDate;
@@ -22,13 +21,6 @@ public class LeaseModel {
         this.amount = amount;
     }
 
-    public String getLeaseID() {
-        return leaseID;
-    }
-
-    public void setLeaseID(String leaseID) {
-        this.leaseID = leaseID;
-    }
 
     public String getPropertyID() {
         return propertyID;
@@ -46,19 +38,19 @@ public class LeaseModel {
         this.tenantID = tenantID;
     }
 
-    public Date getStartDate() {
+    public Calendar getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Calendar startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public Calendar getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Calendar endDate) {
         this.endDate = endDate;
     }
 
@@ -69,5 +61,9 @@ public class LeaseModel {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-    
+
+    @Override
+    public String toString() {
+        return "PropertyID : " + propertyID +"\n Tenant ID : " + tenantID + "\n Start Date : "+ startDate.getTime() + "\n End Date : "+ endDate.getTime();
+    }
 }

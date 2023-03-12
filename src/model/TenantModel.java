@@ -3,27 +3,20 @@ package model;
 import java.util.ArrayList;
 
 public class TenantModel {
-    private String tenantID;
+
     private String tenantName;
-    ArrayList<String> ownedLease = new ArrayList<String>();
-    ArrayList<String> interestedProperty = new ArrayList<String>();
-    ArrayList<String> notification = new ArrayList<String>();
+    ArrayList<String> ownedLeases;
+    ArrayList<String> interestedProperties;
+    ArrayList<String> notificationList;
 
-    public TenantModel(String tenantID, String tenantName, ArrayList<String> ownedLease, ArrayList<String> interestedProperty, ArrayList<String> notification) {
-        this.tenantID = tenantID;
+    public TenantModel( String tenantName) {
+
         this.tenantName = tenantName;
-        this.ownedLease = ownedLease;
-        this.interestedProperty = interestedProperty;
-        this.notification = notification;
+        this.ownedLeases = new ArrayList<String>();
+        this.interestedProperties = new ArrayList<String>();
+        this.notificationList = new ArrayList<String>();
     }
 
-    public String getTenantID() {
-        return tenantID;
-    }
-
-    public void setTenantID(String tenantID) {
-        this.tenantID = tenantID;
-    }
 
     public String getTenantName() {
         return tenantName;
@@ -33,24 +26,41 @@ public class TenantModel {
         this.tenantName = tenantName;
     }
 
-    public void getOwnedLease() {
+    public ArrayList<String> getOwnedLeases() {
+        return ownedLeases;
     }
 
-    public void setOwnedLease(String leaseID) {
-        ownedLease.add(leaseID);
+    public void setOwnedLeases(String leaseID) {
+        ownedLeases.add(leaseID);
     }
 
-    public void getInterestedProperty() {
+    public void removeOwnedLease(String lease) {
+        ownedLeases.remove(lease);
     }
 
-    public void setInterestedProperty(String leaseID) {
-        interestedProperty.add(leaseID);
+
+    public ArrayList<String> getInterestedProperties() {
+        return interestedProperties;
     }
 
-    public void getNotification() {
+    public void setInterestedProperties(String leaseID) {
+        interestedProperties.add(leaseID);
     }
 
-    public void setNotification(String newNotification) {
-        notification.add(newNotification);
+    public void removeInterestedProperty(String property) {
+        interestedProperties.remove(property);
+    }
+
+    public ArrayList<String> getNotificationList() {
+        return notificationList;
+    }
+
+
+    public void setNotificationList(String newNotification) {
+        notificationList.add(newNotification);
+    }
+
+    public void removeNotification(String notification) {
+        notificationList.remove(notification);
     }
 }
