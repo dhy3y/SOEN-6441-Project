@@ -11,10 +11,10 @@ import java.util.Map;
 
 public class LeaseController{
 
-    LeaseModel model;
-    LeaseView view;
+    public LeaseModel model;
+   public LeaseView view;
 
-    RentalDatabase dbInstance = RentalDatabase.getInstance();
+    public RentalDatabase dbInstance = RentalDatabase.getInstance();
 
     public  LeaseController (){
         view = new LeaseView() ;
