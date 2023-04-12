@@ -128,6 +128,29 @@ public class Demo extends Application {
         menuItem1.setOnAction(event -> {
             apartmentModal.showAndWait();
         });
+        //when we click submit button for apartment form
+        submitButton.setOnAction(event -> {
+            String apartmentNumber =apartmentField.getText();
+            String plotNumber =plotField.getText();
+            String streetNumber =streetField.getText();
+            String city =cityField.getText();
+            String postalCode =postalField.getText();
+            String country =countryField.getText();
+            int noOfbedrooms =Integer.valueOf(noOfbedroomsField.getText());
+            int noOfbathrooms =Integer.valueOf(noOfbathroomsField.getText());
+            double squareFoot =Double.valueOf(squarefootField.getText());
+            apartmentField.clear();
+            plotField.clear();
+            streetField.clear();
+            cityField.clear();
+            postalField.clear();
+            countryField.clear();
+            noOfbathroomsField.clear();
+            noOfbedroomsField.clear();
+            squarefootField.clear();
+
+
+        });
 
         //Condo details form
         GridPane condoGrid = new GridPane();
@@ -194,6 +217,8 @@ public class Demo extends Application {
         menuItem2.setOnAction(event -> {
             condoModal.showAndWait();
         });
+
+
 
         //House details form
         GridPane houseGrid = new GridPane();
