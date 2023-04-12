@@ -2,55 +2,43 @@ package set;
 
 public class SetDriver {
     public static void main(String[] args) {
-        // create a set of integers using the IntegerSet implementation
-        Set<IntegerIdentifiable> IntegerSet = new Set<IntegerIdentifiable>();
+        Set<Identifiable> mySet = new Set<>();
 
-        // add some elements to the set
-        IntegerSet.addElement(new IntegerIdentifiable(1));
-        IntegerSet.addElement(new IntegerIdentifiable(2));
-        IntegerSet.addElement(new IntegerIdentifiable(3));
+        // Add some elements to the set
+        mySet.add(new Person(1, "Alice"));
+        mySet.add(new Person(2, "Bob"));
+        mySet.add(new Person(3, "Charlie"));
+        mySet.add(new Number(4, 42));
+        mySet.add(new Number(5, 13));
 
-        // display the set
-        System.out.println("IntegerSet:");
-        IntegerSet.display();
+        // Display the elements in the set
+        System.out.println("My set contains:");
+        mySet.display();
 
-        // remove an element from the set
-        IntegerSet.removeElement(2);
+        // Remove an element from the set
+        System.out.println("Removing element with ID 2");
+        mySet.remove(2);
 
-        // display the set again
-        System.out.println("IntegerSet after removing element with ID 2:");
-        IntegerSet.display();
+        // Display the updated set
+        System.out.println("My set now contains:");
+        mySet.display();
 
-        // create a set of strings using the StringSet1 implementation
-        Set<StringIdentifiable> StringSet1 = new Set<StringIdentifiable>();
+        // Test if an element is in the set
+        System.out.println("Is there an element with ID 3 in the set? " + mySet.peek(3));
+        System.out.println("Is there an element with ID 2 in the set? " + mySet.peek(2));
 
-        // add some elements to the set
-        StringSet1.addElement(new StringIdentifiable("hello"));
-        StringSet1.addElement(new StringIdentifiable("world"));
-        StringSet1.addElement(new StringIdentifiable("java"));
+        // Create a second set with the same elements as the first
+        Set<Identifiable> otherSet = new Set<>();
+        otherSet.add(new Person(1, "Alice"));
+        otherSet.add(new Person(3, "Charlie"));
+        otherSet.add(new Number(4, 42));
+        otherSet.add(new Number(5, 13));
+        otherSet.add(new Person(2, "Bob")); // This element is added in a different order
 
-        // display the set
-        System.out.println("StringSet1:");
-        StringSet1.display();
-
-        // remove an element from the set
-        StringSet1.removeElement(2);
-
-        // display the set again
-        System.out.println("StringSet1 after removing element with ID 2:");
-        StringSet1.display();
-
-        // test equality between sets
-        Set<IntegerIdentifiable> IntegerSet2 = new Set<IntegerIdentifiable>();
-        IntegerSet2.addElement(new IntegerIdentifiable(1));
-        IntegerSet2.addElement(new IntegerIdentifiable(3));
-        System.out.println("IntegerSet equals IntegerSet2? " + IntegerSet.equals(IntegerSet2));
-
-        Set<StringIdentifiable> StringSet2 = new Set<StringIdentifiable>();
-        StringSet2.addElement(new StringIdentifiable("hello"));
-        StringSet2.addElement(new StringIdentifiable("java"));
-        System.out.println("StringSet1 equals StringSet2? " + StringSet1.equals(StringSet2));
+        // Test if the two sets are equal
+        System.out.println("Are the two sets equal? " + mySet.equals(otherSet));
     }
 }
+
 
 

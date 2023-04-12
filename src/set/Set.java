@@ -1,34 +1,39 @@
 package set;
 
 import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Set<T extends Identifiable> {
-    private ArrayList<T> elements;
+    private ArrayList<T> items;
 
     public Set() {
-        elements = new ArrayList<T>();
+        items = new ArrayList<>();
     }
 
-    public void addElement(T element) {
-        if (!peek(element.getID())) {
-            elements.add(element);
+    public void add(T item) {
+        if (!peek(item.getID())) {
+            items.add(item);
+        }
+        else {
+            System.out.println("item already exist in set !");
         }
     }
 
-    public T removeElement(int id) {
-        for (int i = 0; i < elements.size(); i++) {
-            T element = elements.get(i);
-            if (element.getID() == id) {
-                elements.remove(i);
-                return element;
+    public T remove(int id) {
+        for (int i = 0; i < items.size(); i++) {
+            T item = items.get(i);
+            if (item.getID() == id) {
+                items.remove(i);
+                return item;
             }
         }
+
         return null;
     }
 
     public boolean peek(int id) {
-        for (T element : elements) {
-            if (element.getID() == id) {
+        for (T item : items) {
+            if (item.getID() == id) {
                 return true;
             }
         }
@@ -36,20 +41,15 @@ public class Set<T extends Identifiable> {
     }
 
     public int size() {
-        return elements.size();
+        return items.size();
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Set)) {
+    public boolean equals(Set<T> otherSet) {
+        if (this.size() != otherSet.size()) {
             return false;
         }
-        Set<?> other = (Set<?>) obj;
-        if (this.size() != other.size()) {
-            return false;
-        }
-        for (T element : elements) {
-            if (!other.peek(element.getID())) {
+        for (T item : items) {
+            if (!otherSet.peek(item.getID())) {
                 return false;
             }
         }
@@ -57,8 +57,8 @@ public class Set<T extends Identifiable> {
     }
 
     public void display() {
-        for (T element : elements) {
-            System.out.println(element.getID());
+        for (T item : items) {
+            System.out.println(item);
         }
     }
 }
