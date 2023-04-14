@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -17,6 +18,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.property.HouseModel;
 import model.property.Property;
+import set.Person;
+import utils.CustomDate;
+
+import java.util.Calendar;
 
 public class Demo extends Application {
     @Override // Override the start method in the Application class
@@ -148,8 +153,6 @@ public class Demo extends Application {
             noOfbathroomsField.clear();
             noOfbedroomsField.clear();
             squarefootField.clear();
-
-
         });
 
         //Condo details form
@@ -285,6 +288,226 @@ public class Demo extends Application {
 
 
 
+        //Rent a property
+        GridPane rentAPropertyGrid = new GridPane();
+        rentAPropertyGrid.setHgap(10);
+        rentAPropertyGrid.setVgap(10);
+        rentAPropertyGrid.setPadding(new Insets(10, 10, 10, 10));
+
+
+        Label RentPropertyLabel = new Label("Choose type of property:");
+        ComboBox chooseProperty = new ComboBox();
+        chooseProperty.getItems().add("Apartment");
+        chooseProperty.getItems().add("Condo");
+        chooseProperty.getItems().add("House");
+        rentAPropertyGrid.add(RentPropertyLabel,0,0);
+        rentAPropertyGrid.add(chooseProperty,1,0);
+
+        Label propertyIDLabel = new Label("Enter Property ID:");
+        TextField propertyIDField = new TextField();
+        rentAPropertyGrid.add(propertyIDLabel, 0, 1);
+        rentAPropertyGrid.add(propertyIDField, 1, 1);
+
+        Label tenantIDLabel = new Label("Enter Tenant ID:");
+        TextField tenantIDField = new TextField();
+        rentAPropertyGrid.add(tenantIDLabel, 0, 2);
+        rentAPropertyGrid.add(tenantIDField, 1, 2);
+
+        Label startDateLabel = new Label("Enter Start date:");
+        TextField startDateField = new TextField();
+        rentAPropertyGrid.add(startDateLabel, 0, 3);
+        rentAPropertyGrid.add(startDateField, 1, 3);
+
+        Label endDateLabel = new Label("Enter End Date:");
+        TextField endDateField = new TextField();
+        rentAPropertyGrid.add(endDateLabel, 0, 4);
+        rentAPropertyGrid.add(endDateField, 1, 4);
+
+        Label rentAmountLabel = new Label("Enter Rent amount:");
+        TextField rentAmountField = new TextField();
+        rentAPropertyGrid.add(rentAmountLabel, 0, 5);
+        rentAPropertyGrid.add(rentAmountField, 1, 5);
+
+
+        Button submitLease = new Button("Submit");
+        rentAPropertyGrid.add(submitLease, 1, 6);
+
+        // Create the modal window
+        Stage rentAPropModal = new Stage();
+        rentAPropModal.initModality(Modality.APPLICATION_MODAL);
+        rentAPropModal.initOwner(primaryStage);
+        rentAPropModal.setTitle("Add Lease Details");
+        rentAPropModal.setScene(new Scene(rentAPropertyGrid, 400, 400));
+
+        // Show the modal window when the "Open" menu item is clicked
+        menuItem4.setOnAction(event -> {
+            rentAPropModal.showAndWait();
+        });
+        //when we click submit button for apartment form
+        submitLease.setOnAction(event -> {
+            int selectedIndex = chooseProperty.getSelectionModel().getSelectedIndex();
+            Object selectedItem = chooseProperty.getSelectionModel().getSelectedItem();
+            String propertyType = (String) selectedItem;
+            String propertyID =propertyIDField.getText();
+            String tenantID =tenantIDField.getText();
+            String sDate =startDateField.getText();
+            Calendar startDate = CustomDate.getDate(sDate);
+            String eDate =endDateField.getText();
+            Calendar endDate = CustomDate.getDate(eDate);
+
+            double rentAmount = Double.parseDouble(rentAmountField.getText());
+
+            propertyIDField.clear();
+            tenantIDField.clear();
+            startDateField.clear();
+            endDateField.clear();
+            rentAmountField.clear();
+        });
+
+
+
+        //Terminate Lease
+        GridPane terminateLeaseGrid = new GridPane();
+        terminateLeaseGrid.setHgap(10);
+        terminateLeaseGrid.setVgap(10);
+        terminateLeaseGrid.setPadding(new Insets(10, 10, 10, 10));
+
+
+
+        Label termLeaseIDLabel = new Label("Enter Lease ID:");
+        TextField termLeaseIDField = new TextField();
+        terminateLeaseGrid.add(termLeaseIDLabel, 0, 0);
+        terminateLeaseGrid.add(termLeaseIDField, 1, 0);
+
+        Button submitTermLease = new Button("Submit");
+        terminateLeaseGrid.add(submitTermLease, 1, 6);
+
+        // Create the modal window
+        Stage termLeaseModal = new Stage();
+        termLeaseModal.initModality(Modality.APPLICATION_MODAL);
+        termLeaseModal.initOwner(primaryStage);
+        termLeaseModal.setTitle("Terminate a lease");
+        termLeaseModal.setScene(new Scene(terminateLeaseGrid, 400, 400));
+
+        // Show the modal window when the "Open" menu item is clicked
+        menuItem7.setOnAction(event -> {
+            termLeaseModal.showAndWait();
+        });
+        //when we click submit button for apartment form
+        submitTermLease.setOnAction(event -> {
+            String leaseID =termLeaseIDField.getText();
+
+            termLeaseIDField.clear();
+        });
+
+
+        //Show Interested Property
+        GridPane showInterestedPropGrid = new GridPane();
+        showInterestedPropGrid.setHgap(10);
+        showInterestedPropGrid.setVgap(10);
+        showInterestedPropGrid.setPadding(new Insets(10, 10, 10, 10));
+
+
+
+        Label showInterestedPropTenantIDLabel = new Label("Enter Tenant ID:");
+        TextField showInterestedPropTenantIDField = new TextField();
+        showInterestedPropGrid.add(showInterestedPropTenantIDLabel, 0, 0);
+        showInterestedPropGrid.add(showInterestedPropTenantIDField, 1, 0);
+
+        Button subInterestedProp = new Button("Submit");
+        showInterestedPropGrid.add(subInterestedProp, 1, 3);
+
+        // Create the modal window
+        Stage interestedPropModal = new Stage();
+        interestedPropModal.initModality(Modality.APPLICATION_MODAL);
+        interestedPropModal.initOwner(primaryStage);
+        interestedPropModal.setTitle("Terminate a lease");
+        interestedPropModal.setScene(new Scene(showInterestedPropGrid, 400, 400));
+
+        // Show the modal window when the "Open" menu item is clicked
+        menuItem8.setOnAction(event -> {
+            interestedPropModal.showAndWait();
+        });
+        //when we click submit button for apartment form
+        subInterestedProp.setOnAction(event -> {
+            String tenantID =showInterestedPropTenantIDField.getText();
+            termLeaseIDField.clear();
+
+            Stage showProp = new Stage();
+            showProp.initModality(Modality.APPLICATION_MODAL);
+            showProp.initOwner(primaryStage);
+            showProp.setTitle("Display Interested Leases");
+
+            ListView listView = new ListView();
+
+            listView.getItems().add("Item 1");
+            listView.getItems().add("Item 2");
+            listView.getItems().add("Item 3");
+
+            HBox hbox = new HBox(listView);
+
+            Scene scene = new Scene(hbox, 400, 400);
+            showProp.setScene(scene);
+            showProp.show();
+        });
+
+        
+
+        //Show Notification
+        GridPane showNotificationGrid = new GridPane();
+        showNotificationGrid.setHgap(10);
+        showNotificationGrid.setVgap(10);
+        showNotificationGrid.setPadding(new Insets(10, 10, 10, 10));
+
+
+
+        Label showNotificationTenantIDLabel = new Label("Enter Tenant ID:");
+        TextField showNotificationTenantIDField = new TextField();
+        showNotificationGrid.add(showNotificationTenantIDLabel, 0, 0);
+        showNotificationGrid.add(showNotificationTenantIDField, 1, 0);
+
+        Button showNotifProp = new Button("Submit");
+        showNotificationGrid.add(showNotifProp, 1, 3);
+
+        // Create the modal window
+        Stage notificationModal = new Stage();
+        notificationModal.initModality(Modality.APPLICATION_MODAL);
+        notificationModal.initOwner(primaryStage);
+        notificationModal.setTitle("Notifications");
+        notificationModal.setScene(new Scene(showNotificationGrid, 400, 400));
+
+        // Show the modal window when the "Open" menu item is clicked
+        menuItem9.setOnAction(event -> {
+            notificationModal.showAndWait();
+        });
+        //when we click submit button for apartment form
+        showNotifProp.setOnAction(event -> {
+            String tenantID =showNotificationTenantIDField.getText();
+            termLeaseIDField.clear();
+            System.out.println(tenantID);
+
+            Stage showProp = new Stage();
+            showProp.initModality(Modality.APPLICATION_MODAL);
+            showProp.initOwner(primaryStage);
+            showProp.setTitle("Display Notifications");
+
+            ListView listView = new ListView();
+
+            listView.getItems().add("Item 1");
+            listView.getItems().add("Item 2");
+            listView.getItems().add("Item 3");
+
+            HBox hbox = new HBox(listView);
+
+            Scene scene = new Scene(hbox, 400, 400);
+            showProp.setScene(scene);
+            showProp.show();
+        });
+
+
+
+
+
         //Tableview
         TableView tableView = new TableView();
         TableView tableView2 = new TableView();
@@ -307,17 +530,17 @@ public class Demo extends Application {
         tableView.getColumns().add(column2);
 
         tableView.getItems().add(
-                new Person("John", "Doe"));
+                new Person(01, "Doe"));
         tableView.getItems().add(
-                new Person("Jane", "Deer"));
+                new Person(02, "Deer"));
 
         tableView2.getColumns().add(column1);
         tableView2.getColumns().add(column2);
 
         tableView2.getItems().add(
-                new Person("John", "Doe"));
+                new Person(03, "Doe"));
         tableView2.getItems().add(
-                new Person("Jane", "Deer"));
+                new Person(04, "Deer"));
 
 
 
