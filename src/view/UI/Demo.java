@@ -489,6 +489,7 @@ public class Demo extends Application {
 
             pc.rentProperty(propertyTypeCondensed,newLease.getPropertyID(), newLease.getTenantID());
             tc.addLeaseToTenant(newLease);
+            lc.addLease(newLease);
 
             propertyIDField.clear();
             tenantIDField.clear();
