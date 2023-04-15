@@ -509,52 +509,101 @@ public class Demo extends Application {
 
 
         //Tableview
-        TableView tableView = new TableView();
-        TableView tableView2 = new TableView();
+        TableView propertyView = new TableView();
+
 
         TableColumn<Person, String> column1 =
-                new TableColumn<>("First Name");
-
+                new TableColumn<>("Apartment number");
         column1.setCellValueFactory(
-                new PropertyValueFactory<>("firstName"));
+                new PropertyValueFactory<>("Apartment number"));
 
+        TableColumn<Person, String> column10 =
+                new TableColumn<>("Unit number");
+        column1.setCellValueFactory(
+                new PropertyValueFactory<>("Unit number"));
 
         TableColumn<Person, String> column2 =
-                new TableColumn<>("Last Name");
+                new TableColumn<>("Plot number");
 
         column2.setCellValueFactory(
-                new PropertyValueFactory<>("lastName"));
+                new PropertyValueFactory<>("Plot number"));
+
+        TableColumn<Person, String> column3 =
+                new TableColumn<>("Street name");
+
+        column3.setCellValueFactory(
+                new PropertyValueFactory<>("Street name"));
+
+        TableColumn<Person, String> column4 =
+                new TableColumn<>("City");
+
+        column4.setCellValueFactory(
+                new PropertyValueFactory<>("City"));
+
+        TableColumn<Person, String> column5 =
+                new TableColumn<>("Postal Code");
+
+        column5.setCellValueFactory(
+                new PropertyValueFactory<>("Postal Code"));
+
+        TableColumn<Person, String> column6 =
+                new TableColumn<>("Country");
+
+        column6.setCellValueFactory(
+                new PropertyValueFactory<>("Country"));
+
+        TableColumn<Person, String> column7 =
+                new TableColumn<>("Number of bedrooms");
+
+        column7.setCellValueFactory(
+                new PropertyValueFactory<>("Number of bedrooms"));
+
+        TableColumn<Person, String> column8 =
+                new TableColumn<>("Number of bathrooms");
+
+        column8.setCellValueFactory(
+                new PropertyValueFactory<>("Number of bathrooms"));
+
+        TableColumn<Person, String> column9 =
+                new TableColumn<>("Square Foot");
+
+        column9.setCellValueFactory(
+                new PropertyValueFactory<>("Square Foot"));
+
+        column1.setPrefWidth(200);
+        column2.setPrefWidth(150);
+        column3.setPrefWidth(150);
+        column4.setPrefWidth(150);
+        column5.setPrefWidth(150);
+        column6.setPrefWidth(150);
+        column7.setPrefWidth(200);
+        column8.setPrefWidth(200);
+        column9.setPrefWidth(150);
+        column10.setPrefWidth(150);
 
 
-        tableView.getColumns().add(column1);
-        tableView.getColumns().add(column2);
-
-        tableView.getItems().add(
-                new Person(01, "Doe"));
-        tableView.getItems().add(
-                new Person(02, "Deer"));
-
-        tableView2.getColumns().add(column1);
-        tableView2.getColumns().add(column2);
-
-        tableView2.getItems().add(
-                new Person(03, "Doe"));
-        tableView2.getItems().add(
-                new Person(04, "Deer"));
-
+        propertyView.getColumns().add(column1);
+        propertyView.getColumns().add(column10);
+        propertyView.getColumns().add(column2);
+        propertyView.getColumns().add(column3);
+        propertyView.getColumns().add(column4);
+        propertyView.getColumns().add(column5);
+        propertyView.getColumns().add(column6);
+        propertyView.getColumns().add(column7);
+        propertyView.getColumns().add(column8);
+        propertyView.getColumns().add(column9);
 
 
         TabPane tabPane = new TabPane();
         Tab tab1 = new Tab("Properties");
-        tab1.setContent(tableView);
+        tab1.setContent(propertyView);
 
-        Tab tab2 = new Tab("Tenants");
-        tab2.setContent(tableView2);
-//
+
+
 //        Tab tab3 = new Tab("Leases");
 //        tab3.setContent(tableView);
 
-        tabPane.getTabs().addAll(tab1,tab2);
+        tabPane.getTabs().addAll(tab1);
 
 
         VBox vBox = new VBox();
