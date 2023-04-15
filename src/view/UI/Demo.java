@@ -747,6 +747,12 @@ public class Demo extends Application {
         propertyView.getColumns().add(column9);
 
 
+        ArrayList<Property> allProperties = pc.getAllProperties();
+
+        for(Property p : allProperties){
+            propertyView.getItems().add(p);}
+
+
         TableView tenantView = new TableView();
 
         TableColumn<Person, String> tenantColumn1 =
