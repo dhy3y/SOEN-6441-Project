@@ -5,7 +5,7 @@ import model.property.*;
 
 public class CondoView {
     
-    public Property getCondoDetails() {
+    public static Property getCondoDetails() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Unit number : ");
         String unitNumber = sc.next();
