@@ -40,22 +40,20 @@ public class Demo extends Application {
         //Admin option
         Menu menu2 = new Menu("Admin");
         MenuItem menuItem4 = new MenuItem("Rent a Property");
-        MenuItem menuItem5 = new MenuItem("Add Payment");
-        MenuItem menuItem6 = new MenuItem("Change Property Status");
-        MenuItem menuItem7 = new MenuItem("Terminate Lease");
+        MenuItem menuItem5= new MenuItem("Add Tenant");
+        MenuItem menuItem6 = new MenuItem("Terminate Lease");
         menu2.getItems().add(menuItem4);
         menu2.getItems().add(menuItem5);
         menu2.getItems().add(menuItem6);
-        menu2.getItems().add(menuItem7);
+
 
         //Add Tenant
         Menu menu3 = new Menu("Tenant");
         MenuItem menuItem8 = new MenuItem("Show interested Property");
         MenuItem menuItem9 = new MenuItem("Show Notifications");
-        MenuItem menuItem10= new MenuItem("Add Tenant");
+
         menu3.getItems().add(menuItem8);
         menu3.getItems().add(menuItem9);
-        menu3.getItems().add(menuItem10);
 
         //add help
         Menu menu4 = new Menu("Help");
@@ -390,9 +388,7 @@ public class Demo extends Application {
         termLeaseModal.setScene(new Scene(terminateLeaseGrid, 400, 400));
 
         // Show the modal window when the "Open" menu item is clicked
-        menuItem7.setOnAction(event -> {
-            termLeaseModal.showAndWait();
-        });
+
         //when we click submit button for apartment form
         submitTermLease.setOnAction(event -> {
             String leaseID =termLeaseIDField.getText();
@@ -508,9 +504,8 @@ public class Demo extends Application {
 
 
 
-        //Tableview
+        //Tableview for Property
         TableView propertyView = new TableView();
-
 
         TableColumn<Person, String> column1 =
                 new TableColumn<>("Apartment number");
@@ -594,16 +589,75 @@ public class Demo extends Application {
         propertyView.getColumns().add(column9);
 
 
-        TabPane tabPane = new TabPane();
-        Tab tab1 = new Tab("Properties");
-        tab1.setContent(propertyView);
+        TableView tenantView = new TableView();
 
+        TableColumn<Person, String> tenantColumn1 =
+                new TableColumn<>("Tenant ID ");
+        tenantColumn1.setCellValueFactory(
+                new PropertyValueFactory<>("Tenant ID"));
+
+        TableColumn<Person, String> tenantColumn2 =
+                new TableColumn<>("Tenant Name");
+        tenantColumn2.setCellValueFactory(
+                new PropertyValueFactory<>("Tenant Name"));
+
+
+
+        tenantColumn1.setPrefWidth(200);
+        tenantColumn2.setPrefWidth(150);
+
+
+
+        tenantView.getColumns().add(tenantColumn1);
+        tenantView.getColumns().add(tenantColumn2);
+
+        //Add Lease table view
+        TableView leaseView = new TableView();
+
+        TableColumn<Person, String> leaseColumn1 =
+                new TableColumn<>("Tenant ID ");
+        leaseColumn1.setCellValueFactory(
+                new PropertyValueFactory<>("Tenant ID"));
+
+        TableColumn<Person, String> leaseColumn2 =
+                new TableColumn<>("Start Date");
+        leaseColumn2.setCellValueFactory(
+                new PropertyValueFactory<>("Start Date"));
+
+        TableColumn<Person, String> leaseColumn3 =
+                new TableColumn<>("End Date");
+        leaseColumn3.setCellValueFactory(
+                new PropertyValueFactory<>("End Date"));
+
+        TableColumn<Person, String> leaseColumn4 =
+                new TableColumn<>("Amount");
+        leaseColumn4.setCellValueFactory(
+                new PropertyValueFactory<>("Amount"));
+
+       leaseColumn1.setPrefWidth(150);
+        leaseColumn2.setPrefWidth(150);
+        leaseColumn3.setPrefWidth(150);
+        leaseColumn4.setPrefWidth(150);
+
+
+        leaseView.getColumns().add(leaseColumn1);
+        leaseView.getColumns().add(leaseColumn2);
+        leaseView.getColumns().add(leaseColumn3);
+        leaseView.getColumns().add(leaseColumn4);
+
+        TabPane tabPane = new TabPane();
+        Tab propertyTab = new Tab("Properties");
+        Tab tenantTab = new Tab("Tenant");
+        Tab leasesTab=new Tab("Lease");
+        propertyTab.setContent(propertyView);
+        tenantTab.setContent(tenantView);
+        leasesTab.setContent(leaseView);
 
 
 //        Tab tab3 = new Tab("Leases");
 //        tab3.setContent(tableView);
 
-        tabPane.getTabs().addAll(tab1);
+        tabPane.getTabs().addAll(propertyTab,tenantTab,leasesTab);
 
 
         VBox vBox = new VBox();
