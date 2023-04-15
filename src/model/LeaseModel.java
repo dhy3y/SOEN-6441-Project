@@ -85,6 +85,6 @@ public class  LeaseModel {
 
     @Override
     public String toString() {
-        return "PropertyID : " + propertyID +"\n Tenant ID : " + tenantID + "\n Start Date : "+ startDate.getTime() + "\n End Date : "+ endDate.getTime();
+        return "PropertyID : " + propertyID +"\n Tenant ID : " + tenantID + "\n Start Date : "+ startDateInString + "\n End Date : "+ endDateInString;
     }
 }

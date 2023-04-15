@@ -102,7 +102,8 @@ public class Demo extends Application {
                String tenantID =tenantidField.getText();
                String tenantName =tenantNameField.getText();
 
-               tc.addTenant(new TenantModel(tenantName));
+               TenantModel tm = new TenantModel(tenantName);
+               tc.addTenant(tm);
 
                Platform.runLater(new Runnable() {
                    @Override
@@ -114,6 +115,8 @@ public class Demo extends Application {
                        tenantView.refresh();
 
                        tenantModal.close();
+
+                       showSuccessAlert("Tenant Added Successfully",tm.toString());
                    }
                });
            }).start();
@@ -341,6 +344,8 @@ public class Demo extends Application {
                         updatePropertyView();
                         propertyView.refresh();
                         condoModal.close();
+
+                        showSuccessAlert("Property Added Successfully",apt.toString());
                     }
                 });
             }).start();
@@ -439,6 +444,8 @@ public class Demo extends Application {
                         updatePropertyView();
                         propertyView.refresh();
                         houseModal.close();
+
+                        showSuccessAlert("Property Added Successfully",apt.toString());
                     }
                 });
             }).start();
@@ -540,6 +547,7 @@ public class Demo extends Application {
                             if (result == ButtonType.OK){
                                 pc.addTenantAsObserver(propertyID, tenantID);
                                 System.out.println(tenantID + " added as Observer");
+                                showSuccessAlert("Tenant added as observer : ",tenantID);
                             } else {
                                 //nothing
                             }
@@ -552,6 +560,13 @@ public class Demo extends Application {
                     pc.rentProperty(propertyTypeCondensed,newLease.getPropertyID(), newLease.getTenantID());
                     tc.addLeaseToTenant(newLease);
                     lc.addLease(newLease);
+
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            showSuccessAlert("Lease Added Successfully",newLease.toString());
+                        }
+                    });
                 }
 
                 Platform.runLater(new Runnable() {
@@ -618,6 +633,8 @@ public class Demo extends Application {
                         leaseView.refresh();
 
                         termLeaseModal.close();
+
+                        showSuccessAlert("Lease Terminated Successfully",oldLease.toString());
                     }
                 });
             }).start();
@@ -668,7 +685,11 @@ public class Demo extends Application {
                         showProp.setTitle("Display Interested Leases");
 
                         ListView listView = new ListView();
-                        listView.setPlaceholder(new Label("Oops ! Its empty here !"));
+                        listView.setMinSize(400,400);
+                        Label error = new Label("Oops ! Its empty here !");
+                        error.setMinSize(400,400);
+                        error.setPadding(new Insets(80));
+                        listView.setPlaceholder(error);
 
                         for (String property:iProperties
                         ) {
@@ -729,7 +750,12 @@ public class Demo extends Application {
                         showProp.setTitle("Display Notifications");
 
                         ListView listView = new ListView();
-                        listView.setPlaceholder(new Label("Oops ! Its empty here !"));
+                        listView.setMinSize(400,400);
+
+                        Label error = new Label("Oops ! Its empty here !");
+                        error.setMinSize(400,400);
+                        error.setPadding(new Insets(80));
+                        listView.setPlaceholder(error);
 
                         ArrayList<String> iNotifications=  tc.getNotificationList(tenantID);
                         for (String n:iNotifications

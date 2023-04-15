@@ -67,10 +67,11 @@ public class TenantModel {
 
     @Override
     public String toString() {
-        return  "tenantName='" + tenantName + '\'' +
-                ", ownedLeases=" + ownedLeases +
-                ", interestedProperties=" + interestedProperties +
-                ", notificationList=" + notificationList +
+        return  "tenantID=" + tenantID + '\n' +
+                "tenantName='" + tenantName +
+                ",\nownedLeases=" + ownedLeases +
+                ",\ninterestedProperties=" + interestedProperties +
+                ",\nnotificationList=" + notificationList +
                 '\n';
     }
 
