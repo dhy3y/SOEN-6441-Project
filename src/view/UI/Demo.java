@@ -200,7 +200,7 @@ public class Demo extends Application {
         apartmentModal.initModality(Modality.APPLICATION_MODAL);
         apartmentModal.initOwner(primaryStage);
         apartmentModal.setTitle("Apartment details");
-        apartmentModal.setScene(new Scene(apartmentGrid, 400, 400));
+        apartmentModal.setScene(new Scene(apartmentGrid, 400, 500));
 
         // Show the modal window when the "Open" menu item is clicked
         menuItem1.setOnAction(event -> {
@@ -301,7 +301,7 @@ public class Demo extends Application {
         condoModal.initModality(Modality.APPLICATION_MODAL);
         condoModal.initOwner(primaryStage);
         condoModal.setTitle("Condo details");
-        condoModal.setScene(new Scene(condoGrid, 400, 400));
+        condoModal.setScene(new Scene(condoGrid, 400, 500));
 
         // Show the modal window when the "Open" menu item is clicked
         menuItem2.setOnAction(event -> {
@@ -407,7 +407,7 @@ public class Demo extends Application {
         houseModal.initModality(Modality.APPLICATION_MODAL);
         houseModal.initOwner(primaryStage);
         houseModal.setTitle("House details");
-        houseModal.setScene(new Scene(houseGrid, 400, 400));
+        houseModal.setScene(new Scene(houseGrid, 400, 500));
 
         // Show the modal window when the "Open" menu item is clicked
         menuItem3.setOnAction(event -> {
@@ -501,7 +501,7 @@ public class Demo extends Application {
         rentAPropModal.initModality(Modality.APPLICATION_MODAL);
         rentAPropModal.initOwner(primaryStage);
         rentAPropModal.setTitle("Add Lease Details");
-        rentAPropModal.setScene(new Scene(rentAPropertyGrid, 400, 400));
+        rentAPropModal.setScene(new Scene(rentAPropertyGrid, 400, 500));
 
         // Show the modal window when the "Open" menu item is clicked
         menuItem4.setOnAction(event -> {
@@ -565,6 +565,7 @@ public class Demo extends Application {
                         @Override
                         public void run() {
                             showSuccessAlert("Lease Added Successfully",newLease.toString());
+                            propertyView.refresh();
                         }
                     });
                 }
@@ -777,126 +778,67 @@ public class Demo extends Application {
 
 
 
+
         //Tableview for Property
-        propertyView = new TableView();
-
-        TableColumn<Property, String> column10 =
-                new TableColumn<>("Id");
-        column10.setCellValueFactory(
-                new PropertyValueFactory<>("id"));
-
-
-        TableColumn<Property, String> column1 =
-                new TableColumn<>("Address");
-        column1.setCellValueFactory(
-                new PropertyValueFactory<>("address"));
-
-        TableColumn<Property, String> column7 =
-                new TableColumn<>("Number of bedrooms");
-
-        column7.setCellValueFactory(
-                new PropertyValueFactory<>("numberOfBedroom"));
-
-        TableColumn<Property, String> column8 =
-                new TableColumn<>("Number of bathrooms");
-
-        column8.setCellValueFactory(
-                new PropertyValueFactory<>("numberOfBathroom"));
-
-        TableColumn<Property, String> column9 =
-                new TableColumn<>("Square Foot");
-
-        column9.setCellValueFactory(
-                new PropertyValueFactory<>("squareFoot"));
-
-        column10.setPrefWidth(100);
-        column1.setPrefWidth(500);
-        column7.setPrefWidth(200);
-        column8.setPrefWidth(200);
-        column9.setPrefWidth(150);
-//        column10.setPrefWidth(150);
-
-        propertyView.getColumns().add(column10);
-        propertyView.getColumns().add(column1);
-
-        propertyView.getColumns().add(column7);
-        propertyView.getColumns().add(column8);
-        propertyView.getColumns().add(column9);
-
-
+//        propertyView = new TableView();
+//
+//        TableColumn<Property, String> column10 =
+//                new TableColumn<>("Id");
+//        column10.setCellValueFactory(
+//                new PropertyValueFactory<>("id"));
+//
+//
+//        TableColumn<Property, String> column1 =
+//                new TableColumn<>("Address");
+//        column1.setCellValueFactory(
+//                new PropertyValueFactory<>("address"));
+//
+//        TableColumn<Property, String> column7 =
+//                new TableColumn<>("Number of bedrooms");
+//
+//        column7.setCellValueFactory(
+//                new PropertyValueFactory<>("numberOfBedroom"));
+//
+//        TableColumn<Property, String> column8 =
+//                new TableColumn<>("Number of bathrooms");
+//
+//        column8.setCellValueFactory(
+//                new PropertyValueFactory<>("numberOfBathroom"));
+//
+//        TableColumn<Property, String> column9 =
+//                new TableColumn<>("Square Foot");
+//
+//        column9.setCellValueFactory(
+//                new PropertyValueFactory<>("squareFoot"));
+//
+//        column10.setPrefWidth(100);
+//        column1.setPrefWidth(500);
+//        column7.setPrefWidth(200);
+//        column8.setPrefWidth(200);
+//        column9.setPrefWidth(150);
+////        column10.setPrefWidth(150);
+//
+//        propertyView.getColumns().add(column10);
+//        propertyView.getColumns().add(column1);
+//
+//        propertyView.getColumns().add(column7);
+//        propertyView.getColumns().add(column8);
+//        propertyView.getColumns().add(column9);
 
 
 
-        tenantView = new TableView();
 
-        TableColumn<TenantModel, String> tenantColumn1 =
-                new TableColumn<>("Tenant ID ");
-        tenantColumn1.setCellValueFactory(
-                new PropertyValueFactory<>("tenantID"));
-
-        TableColumn<TenantModel, String> tenantColumn2 =
-                new TableColumn<>("Tenant Name");
-        tenantColumn2.setCellValueFactory(
-                new PropertyValueFactory<>("tenantName"));
-
-
-
-        tenantColumn1.setPrefWidth(200);
-        tenantColumn2.setPrefWidth(150);
-
-
-
-        tenantView.getColumns().add(tenantColumn1);
-        tenantView.getColumns().add(tenantColumn2);
-        tenantView.getSortOrder().add(tenantColumn1);
-
-        //Add Lease table view
-        leaseView = new TableView();
-
-        TableColumn<LeaseModel, String> leaseColumn1 =
-                new TableColumn<>("Tenant ID ");
-        leaseColumn1.setCellValueFactory(
-                new PropertyValueFactory<>("tenantID"));
-
-        TableColumn<LeaseModel, String> leaseColumn5 =
-                new TableColumn<>("Property ID ");
-        leaseColumn5.setCellValueFactory(
-                new PropertyValueFactory<>("propertyID"));
-
-        TableColumn<LeaseModel, Calendar> leaseColumn2 =
-                new TableColumn<>("Start Date");
-        leaseColumn2.setCellValueFactory(
-                new PropertyValueFactory<>("startDateInString"));
-
-        TableColumn<LeaseModel, Calendar> leaseColumn3 =
-                new TableColumn<>("End Date");
-        leaseColumn3.setCellValueFactory(
-                new PropertyValueFactory<>("endDateInString"));
-
-        TableColumn<LeaseModel, String> leaseColumn4 =
-                new TableColumn<>("Amount");
-        leaseColumn4.setCellValueFactory(
-                new PropertyValueFactory<>("amount"));
-
-       leaseColumn1.setPrefWidth(150);
-        leaseColumn2.setPrefWidth(150);
-        leaseColumn3.setPrefWidth(150);
-        leaseColumn4.setPrefWidth(150);
-
-
-        leaseView.getColumns().add(leaseColumn5);
-        leaseView.getColumns().add(leaseColumn1);
-        leaseView.getColumns().add(leaseColumn2);
-        leaseView.getColumns().add(leaseColumn3);
-        leaseView.getColumns().add(leaseColumn4);
-        leaseView.getSortOrder().add(leaseColumn1);
 
         TabPane tabPane = new TabPane();
         Tab propertyTab = new Tab("Properties");
         Tab tenantTab = new Tab("Tenant");
         Tab leasesTab=new Tab("Lease");
+
+        propertyView = PropertyUI.loadTable(propertyView);
         propertyTab.setContent(propertyView);
+        tenantView = TenantUI.loadTable(tenantView);
         tenantTab.setContent(tenantView);
+        leaseView = LeaseUI.loadTable(leaseView);
         leasesTab.setContent(leaseView);
 
         propertyTab.setClosable(false);
