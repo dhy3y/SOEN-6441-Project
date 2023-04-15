@@ -13,6 +13,10 @@ public class  LeaseModel {
     private Calendar endDate;
     private double amount;
 
+
+    private String endDateInString;
+    private String startDateInString;
+
     public LeaseModel( String propertyID, String tenantID, Calendar startDate, Calendar endDate, double amount) {
         this.propertyID = propertyID;
         this.tenantID = tenantID;
@@ -21,6 +25,23 @@ public class  LeaseModel {
         this.amount = amount;
     }
 
+
+
+    public String getEndDateInString() {
+        return endDateInString;
+    }
+
+    public void setEndDateInString(String endDateInString) {
+        this.endDateInString = endDateInString;
+    }
+
+    public String getStartDateInString() {
+        return startDateInString;
+    }
+
+    public void setStartDateInString(String startDateInString) {
+        this.startDateInString = startDateInString;
+    }
 
     public String getPropertyID() {
         return propertyID;

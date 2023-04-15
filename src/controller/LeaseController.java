@@ -5,6 +5,7 @@ import model.LeaseModel;
 import model.TenantModel;
 import view.LeaseView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,6 +25,9 @@ public class LeaseController{
 
     public LeaseModel addLease(LeaseModel newLease){
 //        LeaseModel newLease = view.getLeaseDetails(propertyID);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        newLease.setEndDateInString( sdf.format(newLease.getEndDate().getTime()));
+        newLease.setStartDateInString(sdf.format(newLease.getStartDate().getTime()));
         dbInstance.addLease(newLease);
         System.out.println("\n New Lease Created");
         return newLease;

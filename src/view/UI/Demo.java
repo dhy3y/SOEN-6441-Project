@@ -59,9 +59,11 @@ public class Demo extends Application {
         MenuItem menuItem4 = new MenuItem("Rent a Property");
         MenuItem menuItem5= new MenuItem("Add Tenant");
         MenuItem menuItem6 = new MenuItem("Terminate Lease");
+
         menu2.getItems().add(menuItem4);
         menu2.getItems().add(menuItem5);
         menu2.getItems().add(menuItem6);
+
 
         //add Tenant
         GridPane tenantGrid = new GridPane();
@@ -838,12 +840,12 @@ public class Demo extends Application {
         TableColumn<LeaseModel, Calendar> leaseColumn2 =
                 new TableColumn<>("Start Date");
         leaseColumn2.setCellValueFactory(
-                new PropertyValueFactory<>("startDate"));
+                new PropertyValueFactory<>("startDateInString"));
 
         TableColumn<LeaseModel, Calendar> leaseColumn3 =
                 new TableColumn<>("End Date");
         leaseColumn3.setCellValueFactory(
-                new PropertyValueFactory<>("endDate"));
+                new PropertyValueFactory<>("endDateInString"));
 
         TableColumn<LeaseModel, String> leaseColumn4 =
                 new TableColumn<>("Amount");
