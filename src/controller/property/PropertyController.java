@@ -23,18 +23,15 @@ public class PropertyController {
         houView = new HouseView();
     }
 
-    public void addApartment() {
-        Property property = aptView.getApartmentDetails();
+    public void addApartment(Property property) {
         dbInstance.addProperty(property);
     }
 
-    public void addCondo() {
-        Property property = conView.getCondoDetails();
+    public void addCondo(Property property) {
         dbInstance.addProperty(property);
     }
 
-    public void addHouse() {
-        Property property = houView.getHouseDetails();
+    public void addHouse(Property property) {
         dbInstance.addProperty(property);
     }
 

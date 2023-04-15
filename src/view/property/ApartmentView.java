@@ -5,7 +5,7 @@ import model.property.*;
 
 public class ApartmentView {
 
-    public Property getApartmentDetails() {
+    public static Property getApartmentDetails() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter apartment number : ");
         String apartmentNumber = sc.next();

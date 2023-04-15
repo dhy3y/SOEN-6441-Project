@@ -5,7 +5,7 @@ import model.property.*;
 
 public class HouseView {
     
-    public Property getHouseDetails() {
+    public static Property getHouseDetails() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Street name : ");
         String streetName = sc.next();

@@ -4,6 +4,9 @@ import controller.LeaseController;
 import controller.TenantController;
 import controller.property.PropertyController;
 import model.LeaseModel;
+import view.property.ApartmentView;
+import view.property.CondoView;
+import view.property.HouseView;
 
 public class RentalManagementSystem {
 
@@ -12,6 +15,7 @@ public class RentalManagementSystem {
 
             TenantController tenantController = new TenantController();
             PropertyController propertyController = new PropertyController();
+
             LeaseController leaseController = new LeaseController();
 
             System.out.println("-----Welcome to the Rental Management System-----\n\n");
@@ -41,13 +45,13 @@ public class RentalManagementSystem {
                         int type = scanner.nextInt();
 
                         if(type == 1) {
-                            propertyController.addApartment();
+                            propertyController.addApartment(ApartmentView.getApartmentDetails());
                         }
                         else if(type == 2) {
-                            propertyController.addCondo();
+                            propertyController.addCondo(CondoView.getCondoDetails());
                         }
                         else if(type == 3) {
-                            propertyController.addHouse();
+                            propertyController.addHouse(HouseView.getHouseDetails());
                         }
                         else System.out.println("Wrong input");
                         break;
