@@ -232,6 +232,7 @@ public class Demo extends Application {
 
                         apartmentModal.close();
 
+                        showSuccessAlert("Property Added Successfully",apt.toString());
                         updatePropertyView();
                         propertyView.refresh();
                     }
@@ -930,6 +931,29 @@ public class Demo extends Application {
             leaseView.getItems().add(p);}
 
         leaseView.sort();
+    }
+
+    public static void showSuccessAlert(String header,String message){
+        Platform.runLater(()->{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(header);
+            alert.setContentText(message);
+            alert.showAndWait();
+
+        });
+
+    }
+
+    public static void showFailureAlert(String header,String message){
+        Platform.runLater(()->{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Failure");
+            alert.setHeaderText(header);
+            alert.setContentText(message);
+            alert.showAndWait();
+        });
+
     }
 }
 
