@@ -4,6 +4,7 @@ import controller.LeaseController;
 import controller.TenantController;
 import controller.property.PropertyController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -95,19 +96,25 @@ public class Demo extends Application {
 
         //when we click submit button on tenant form
         tenantSubmitButton.setOnAction(event -> {
-            String tenantID =tenantidField.getText();
-            String tenantName =tenantNameField.getText();
+           new Thread(() -> {
+               String tenantID =tenantidField.getText();
+               String tenantName =tenantNameField.getText();
 
-            tc.addTenant(new TenantModel(tenantName));
+               tc.addTenant(new TenantModel(tenantName));
 
+               Platform.runLater(new Runnable() {
+                   @Override
+                   public void run() {
+                       tenantidField.clear();
+                       tenantNameField.clear();
 
-            tenantidField.clear();
-            tenantNameField.clear();
+                       updateTenantView();
+                       tenantView.refresh();
 
-            updateTenantView();
-            tenantView.refresh();
-
-            tenantModal.close();
+                       tenantModal.close();
+                   }
+               });
+           }).start();
         });
 
 
@@ -196,33 +203,40 @@ public class Demo extends Application {
         });
         //when we click submit button for apartment form
         submitButton.setOnAction(event -> {
-            String apartmentNumber =apartmentField.getText();
-            String plotNumber =plotField.getText();
-            String streetName =streetField.getText();
-            String city =cityField.getText();
-            String postalCode =postalField.getText();
-            String country =countryField.getText();
-            int noOfbedrooms =Integer.valueOf(noOfbedroomsField.getText());
-            int noOfbathrooms =Integer.valueOf(noOfbathroomsField.getText());
-            double squareFoot =Double.valueOf(squarefootField.getText());
+            new Thread(() -> {
+                String apartmentNumber =apartmentField.getText();
+                String plotNumber =plotField.getText();
+                String streetName =streetField.getText();
+                String city =cityField.getText();
+                String postalCode =postalField.getText();
+                String country =countryField.getText();
+                int noOfbedrooms =Integer.valueOf(noOfbedroomsField.getText());
+                int noOfbathrooms =Integer.valueOf(noOfbathroomsField.getText());
+                double squareFoot =Double.valueOf(squarefootField.getText());
 
-            model.property.Property apt = new ApartmentModel(apartmentNumber,plotNumber,streetName,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
-            pc.addApartment(apt);
-            
-            apartmentField.clear();
-            plotField.clear();
-            streetField.clear();
-            cityField.clear();
-            postalField.clear();
-            countryField.clear();
-            noOfbathroomsField.clear();
-            noOfbedroomsField.clear();
-            squarefootField.clear();
+                model.property.Property apt = new ApartmentModel(apartmentNumber,plotNumber,streetName,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
+                pc.addApartment(apt);
 
-            apartmentModal.close();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        apartmentField.clear();
+                        plotField.clear();
+                        streetField.clear();
+                        cityField.clear();
+                        postalField.clear();
+                        countryField.clear();
+                        noOfbathroomsField.clear();
+                        noOfbedroomsField.clear();
+                        squarefootField.clear();
 
-            updatePropertyView();
-            propertyView.refresh();
+                        apartmentModal.close();
+
+                        updatePropertyView();
+                        propertyView.refresh();
+                    }
+                });
+            }).start();
         });
 
         //Condo details form
@@ -294,32 +308,39 @@ public class Demo extends Application {
       
 
         condoSubmitButton.setOnAction(event -> {
-            String unitNumber =condoUnitField.getText();
-            String plotNumber =condoPlotField.getText();
-            String streetName =condoStreetField.getText();
-            String city = condoCityField.getText();
-            String postalCode =condoPostalField.getText();
-            String country =condoCountryField.getText();
-            int noOfbedrooms =Integer.valueOf(condonoOfbedroomsField.getText());
-            int noOfbathrooms =Integer.valueOf(condonoOfbathroomsField.getText());
-            double squareFoot =Double.valueOf(condosquarefootField.getText());
+            new Thread(() -> {
+                String unitNumber =condoUnitField.getText();
+                String plotNumber =condoPlotField.getText();
+                String streetName =condoStreetField.getText();
+                String city = condoCityField.getText();
+                String postalCode =condoPostalField.getText();
+                String country =condoCountryField.getText();
+                int noOfbedrooms =Integer.valueOf(condonoOfbedroomsField.getText());
+                int noOfbathrooms =Integer.valueOf(condonoOfbathroomsField.getText());
+                double squareFoot =Double.valueOf(condosquarefootField.getText());
 
-            model.property.Property apt = new CondoModel(unitNumber,plotNumber,streetName,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
-            pc.addCondo(apt);
+                model.property.Property apt = new CondoModel(unitNumber,plotNumber,streetName,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
+                pc.addCondo(apt);
 
-            apartmentField.clear();
-            plotField.clear();
-            streetField.clear();
-            cityField.clear();
-            postalField.clear();
-            countryField.clear();
-            noOfbathroomsField.clear();
-            noOfbedroomsField.clear();
-            squarefootField.clear();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        apartmentField.clear();
+                        plotField.clear();
+                        streetField.clear();
+                        cityField.clear();
+                        postalField.clear();
+                        countryField.clear();
+                        noOfbathroomsField.clear();
+                        noOfbedroomsField.clear();
+                        squarefootField.clear();
 
-            updatePropertyView();
-            propertyView.refresh();
-            condoModal.close();
+                        updatePropertyView();
+                        propertyView.refresh();
+                        condoModal.close();
+                    }
+                });
+            }).start();
         });
 
         //House details form
@@ -386,31 +407,38 @@ public class Demo extends Application {
         });
 
         houseSubmitButton.setOnAction(event -> {
-            String streetName =houseStreetField.getText();
-            String plotNumber =housePlotField.getText();
-            String city = houseCityField.getText();
-            String postalCode =housePostalField.getText();
-            String country =houseCountryField.getText();
-            int noOfbedrooms =Integer.valueOf(housenoOfbedroomsField.getText());
-            int noOfbathrooms =Integer.valueOf(housenoOfbathroomsField.getText());
-            double squareFoot =Double.valueOf(housesquarefootField.getText());
+            new Thread(() -> {
+                String streetName =houseStreetField.getText();
+                String plotNumber =housePlotField.getText();
+                String city = houseCityField.getText();
+                String postalCode =housePostalField.getText();
+                String country =houseCountryField.getText();
+                int noOfbedrooms =Integer.valueOf(housenoOfbedroomsField.getText());
+                int noOfbathrooms =Integer.valueOf(housenoOfbathroomsField.getText());
+                double squareFoot =Double.valueOf(housesquarefootField.getText());
 
-            model.property.Property apt = new HouseModel(streetName,plotNumber,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
-            pc.addHouse(apt);
+                model.property.Property apt = new HouseModel(streetName,plotNumber,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
+                pc.addHouse(apt);
 
 
-            plotField.clear();
-            streetField.clear();
-            cityField.clear();
-            postalField.clear();
-            countryField.clear();
-            noOfbathroomsField.clear();
-            noOfbedroomsField.clear();
-            squarefootField.clear();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        plotField.clear();
+                        streetField.clear();
+                        cityField.clear();
+                        postalField.clear();
+                        countryField.clear();
+                        noOfbathroomsField.clear();
+                        noOfbedroomsField.clear();
+                        squarefootField.clear();
 
-            updatePropertyView();
-            propertyView.refresh();
-            houseModal.close();
+                        updatePropertyView();
+                        propertyView.refresh();
+                        houseModal.close();
+                    }
+                });
+            }).start();
         });
 
 
@@ -472,43 +500,72 @@ public class Demo extends Application {
         //when we click submit button for apartment form
         submitLease.setOnAction(event -> {
            // int selectedIndex = chooseProperty.getSelectionModel().getSelectedIndex();
-            Object selectedItem = chooseProperty.getSelectionModel().getSelectedItem();
-            String propertyType = (String) selectedItem;
-            String propertyID =propertyIDField.getText();
-            String tenantID =tenantIDField.getText();
-            String sDate =startDateField.getText();
-            Calendar startDate = CustomDate.getDate(sDate);
-            String eDate =endDateField.getText();
-            Calendar endDate = CustomDate.getDate(eDate);
+            new Thread(() -> {
+                Object selectedItem = chooseProperty.getSelectionModel().getSelectedItem();
+                String propertyType = (String) selectedItem;
+                String propertyID =propertyIDField.getText();
+                String tenantID =tenantIDField.getText();
+                String sDate =startDateField.getText();
+                Calendar startDate = CustomDate.getDate(sDate);
+                String eDate =endDateField.getText();
+                Calendar endDate = CustomDate.getDate(eDate);
 
-            double amount = Double.parseDouble(rentAmountField.getText());
+                String propertyTypeCondensed = null;
+                if(propertyType == "Apartment") {
+                    propertyTypeCondensed = "APT";
+                }
+                else if(propertyType == "Condo") {
+                    propertyTypeCondensed = "CON";
+                }
+                else if(propertyType == "House") {
+                    propertyTypeCondensed = "HOU";
+                }
 
-            LeaseModel newLease= new LeaseModel(propertyID,tenantID,startDate,endDate,amount);
+                double amount = Double.parseDouble(rentAmountField.getText());
 
-            String propertyTypeCondensed = null;
-            if(propertyType == "Apartment") {
-                propertyTypeCondensed = "APT";
-            }
-            else if(propertyType == "Condo") {
-                propertyTypeCondensed = "CON";
-            }
-            else if(propertyType == "House") {
-                propertyTypeCondensed = "HOU";
-            }
 
-            pc.rentProperty(propertyTypeCondensed,newLease.getPropertyID(), newLease.getTenantID());
-            tc.addLeaseToTenant(newLease);
-            lc.addLease(newLease);
+                if(pc.isRentedOrNot(propertyTypeCondensed,propertyID)) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Confirmation Dialog");
+                            alert.setHeaderText("This property is already rented. Do you want to get notified when it is vacant?");
+                            alert.setContentText("You will receive notifications");
 
-            propertyIDField.clear();
-            tenantIDField.clear();
-            startDateField.clear();
-            endDateField.clear();
-            rentAmountField.clear();
+                            ButtonType result = alert.showAndWait().get();
+                            if (result == ButtonType.OK){
+                                pc.addTenantAsObserver(propertyID, tenantID);
+                                System.out.println(tenantID + " added as Observer");
+                            } else {
+                                //nothing
+                            }
+                        }
+                    });
+                }
+                else {
+                    LeaseModel newLease= new LeaseModel(propertyID,tenantID,startDate,endDate,amount);
 
-            updateLeaseView();
-            leaseView.refresh();
-            rentAPropModal.close();
+                    pc.rentProperty(propertyTypeCondensed,newLease.getPropertyID(), newLease.getTenantID());
+                    tc.addLeaseToTenant(newLease);
+                    lc.addLease(newLease);
+                }
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        propertyIDField.clear();
+                        tenantIDField.clear();
+                        startDateField.clear();
+                        endDateField.clear();
+                        rentAmountField.clear();
+
+                        updateLeaseView();
+                        leaseView.refresh();
+                        rentAPropModal.close();
+                    }
+                });
+            }).start();
         });
 
 
@@ -542,21 +599,25 @@ public class Demo extends Application {
         });
         //when we click submit button for apartment form
         submitTermLease.setOnAction(event -> {
-            String leaseID =termLeaseIDField.getText();
+            new Thread(() -> {
+                String leaseID =termLeaseIDField.getText();
 
-            LeaseModel oldLease = lc.removeLease(leaseID);
-//            System.out.println(oldLease);
-            tc.removeLeaseFromTenant(oldLease);
-//            System.out.println(tc.getAllTenants());
-            pc.vacantProperty(oldLease.getPropertyID());
-//            System.out.println(pc.getAllProperties());
+                LeaseModel oldLease = lc.removeLease(leaseID);
+                tc.removeLeaseFromTenant(oldLease);
+                pc.vacantProperty(oldLease.getPropertyID());
 
-            termLeaseIDField.clear();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        termLeaseIDField.clear();
 
-            updateLeaseView();
-            leaseView.refresh();
+                        updateLeaseView();
+                        leaseView.refresh();
 
-            termLeaseModal.close();
+                        termLeaseModal.close();
+                    }
+                });
+            }).start();
         });
 
 
@@ -589,33 +650,36 @@ public class Demo extends Application {
         });
         //when we click submit button for apartment form
         subInterestedProp.setOnAction(event -> {
-            String tenantID =showInterestedPropTenantIDField.getText();
-            ArrayList<String> iProperties=  tc.getInterestedProperties(tenantID);
+            new Thread(() -> {
+                String tenantID =showInterestedPropTenantIDField.getText();
+                ArrayList<String> iProperties=  tc.getInterestedProperties(tenantID);
 
-            termLeaseIDField.clear();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        termLeaseIDField.clear();
 
-            Stage showProp = new Stage();
-            showProp.initModality(Modality.APPLICATION_MODAL);
-            showProp.initOwner(primaryStage);
-            showProp.setTitle("Display Interested Leases");
+                        Stage showProp = new Stage();
+                        showProp.initModality(Modality.APPLICATION_MODAL);
+                        showProp.initOwner(primaryStage);
+                        showProp.setTitle("Display Interested Leases");
 
-            ListView listView = new ListView();
-            listView.setPlaceholder(new Label("Oops ! Its empty here !"));
+                        ListView listView = new ListView();
+                        listView.setPlaceholder(new Label("Oops ! Its empty here !"));
 
-            
+                        for (String property:iProperties
+                        ) {
+                            listView.getItems().add(property);
+                        }
 
+                        HBox hbox = new HBox(listView);
 
-            for (String property:iProperties
-                 ) {
-                listView.getItems().add(property);
-            }
-
-
-            HBox hbox = new HBox(listView);
-
-            Scene scene = new Scene(hbox, 400, 400);
-            showProp.setScene(scene);
-            showProp.show();
+                        Scene scene = new Scene(hbox, 400, 400);
+                        showProp.setScene(scene);
+                        showProp.show();
+                    }
+                });
+            }).start();
         });
 
         
@@ -649,30 +713,35 @@ public class Demo extends Application {
         });
         //when we click submit button for apartment form
         showNotifProp.setOnAction(event -> {
-            String tenantID =showNotificationTenantIDField.getText();
-            termLeaseIDField.clear();
-            System.out.println(tenantID);
+            new Thread(() -> {
+                String tenantID =showNotificationTenantIDField.getText();
 
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        termLeaseIDField.clear();
+                        Stage showProp = new Stage();
+                        showProp.initModality(Modality.APPLICATION_MODAL);
+                        showProp.initOwner(primaryStage);
+                        showProp.setTitle("Display Notifications");
 
-            Stage showProp = new Stage();
-            showProp.initModality(Modality.APPLICATION_MODAL);
-            showProp.initOwner(primaryStage);
-            showProp.setTitle("Display Notifications");
+                        ListView listView = new ListView();
+                        listView.setPlaceholder(new Label("Oops ! Its empty here !"));
 
-            ListView listView = new ListView();
-            listView.setPlaceholder(new Label("Oops ! Its empty here !"));
+                        ArrayList<String> iNotifications=  tc.getNotificationList(tenantID);
+                        for (String n:iNotifications
+                        ) {
+                            listView.getItems().add(n);
+                        }
 
-            ArrayList<String> iNotifications=  tc.getNotificationList(tenantID);
-            for (String n:iNotifications
-            ) {
-                listView.getItems().add(n);
-            }
+                        HBox hbox = new HBox(listView);
 
-            HBox hbox = new HBox(listView);
-
-            Scene scene = new Scene(hbox, 400, 400);
-            showProp.setScene(scene);
-            showProp.show();
+                        Scene scene = new Scene(hbox, 400, 400);
+                        showProp.setScene(scene);
+                        showProp.show();
+                    }
+                });
+            }).start();
         });
 
 
