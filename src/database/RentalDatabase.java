@@ -58,6 +58,10 @@ public class RentalDatabase {
         System.out.println("Tenant Added. ID : " + newTenantId);
     }
 
+    public  HashMap<String, HashMap<String, Property>> getPropertyDetails() {
+        return propertyDetails;
+    }
+
     public HashMap<String, TenantModel> getTenants() {
         return tenantDetails;
     }
