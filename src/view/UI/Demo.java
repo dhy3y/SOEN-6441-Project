@@ -476,7 +476,18 @@ public class Demo extends Application {
 
             LeaseModel newLease= new LeaseModel(propertyID,tenantID,startDate,endDate,amount);
 
-            pc.rentProperty(propertyType,newLease.getPropertyID(), newLease.getTenantID());
+            String propertyTypeCondensed = null;
+            if(propertyType == "Apartment") {
+                propertyTypeCondensed = "APT";
+            }
+            else if(propertyType == "Condo") {
+                propertyTypeCondensed = "CON";
+            }
+            else if(propertyType == "House") {
+                propertyTypeCondensed = "HOU";
+            }
+
+            pc.rentProperty(propertyTypeCondensed,newLease.getPropertyID(), newLease.getTenantID());
             tc.addLeaseToTenant(newLease);
 
             propertyIDField.clear();
@@ -514,12 +525,21 @@ public class Demo extends Application {
         termLeaseModal.setScene(new Scene(terminateLeaseGrid, 400, 400));
 
         // Show the modal window when the "Open" menu item is clicked
-
+        menuItem6.setOnAction(event -> {
+            termLeaseModal.showAndWait();
+        });
         //when we click submit button for apartment form
         submitTermLease.setOnAction(event -> {
             String leaseID =termLeaseIDField.getText();
+            System.out.println(leaseID);
+
+            LeaseModel oldLease = lc.removeLease(leaseID);
+            tc.removeLeaseFromTenant(oldLease);
+            pc.vacantProperty(oldLease.getPropertyID());
 
             termLeaseIDField.clear();
+
+            termLeaseModal.close();
         });
 
 
