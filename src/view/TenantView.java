@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class TenantView {
 
-    public TenantModel getTenantDetails() {
+    public static TenantModel getTenantDetails() {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Enter Tenant Name : ");

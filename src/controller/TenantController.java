@@ -5,6 +5,7 @@ import model.LeaseModel;
 import model.TenantModel;
 import view.TenantView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -20,8 +21,9 @@ public class TenantController {
         view = new TenantView();
     }
 
-    public void addTenant(){
-         dbInstance.addTenant(view.getTenantDetails());
+    public void addTenant(TenantModel newTenant){
+        // dbInstance.addTenant(view.getTenantDetails());
+         dbInstance.addTenant(newTenant);
 
     }
 
@@ -42,6 +44,15 @@ public class TenantController {
         }
 
     }
+
+    public ArrayList<String> getInterestedProperties(String tId){
+        return dbInstance.getTenants().get(tId).getInterestedProperties();
+    }
+
+    public ArrayList<String> getNotificationList(String tId){
+        return dbInstance.getTenants().get(tId).getNotificationList();
+    }
+
 
     public void addLeaseToTenant(LeaseModel newLease) {
         String propertyID = newLease.getPropertyID();

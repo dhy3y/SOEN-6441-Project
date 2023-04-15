@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class LeaseView {
 
-    public LeaseModel getLeaseDetails(String propertyID) {
+    public static LeaseModel getLeaseDetails(String propertyID) {
         Scanner scan = new Scanner(System.in);
 
 //        System.out.println("Enter Property ID : ");

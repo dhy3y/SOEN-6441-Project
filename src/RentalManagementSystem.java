@@ -4,6 +4,8 @@ import controller.LeaseController;
 import controller.TenantController;
 import controller.property.PropertyController;
 import model.LeaseModel;
+import view.LeaseView;
+import view.TenantView;
 import view.property.ApartmentView;
 import view.property.CondoView;
 import view.property.HouseView;
@@ -56,7 +58,7 @@ public class RentalManagementSystem {
                         else System.out.println("Wrong input");
                         break;
                     case 2:
-                        tenantController.addTenant();
+                        tenantController.addTenant(TenantView.getTenantDetails());
                         break;
                     case 3:
                         printTypesOfProperty();
@@ -97,7 +99,7 @@ public class RentalManagementSystem {
 
                         }
                         else{
-                            LeaseModel newLease=leaseController.addLease(propertyID);
+                            LeaseModel newLease= LeaseView.getLeaseDetails(propertyID);
                             propertyController.rentProperty(propertyType,newLease.getPropertyID(), newLease.getTenantID());
                             tenantController.addLeaseToTenant(newLease);
                         }

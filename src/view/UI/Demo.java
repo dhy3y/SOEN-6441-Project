@@ -1,5 +1,8 @@
 package view.UI;
 
+import controller.LeaseController;
+import controller.TenantController;
+import controller.property.PropertyController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,14 +19,30 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.LeaseModel;
+import model.TenantModel;
+import model.property.ApartmentModel;
+import model.property.CondoModel;
 import model.property.HouseModel;
 import model.property.Property;
 import set.Person;
 import utils.CustomDate;
 
+import java.rmi.dgc.Lease;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Demo extends Application {
+
+    PropertyController pc;
+    LeaseController lc;
+    TenantController tc;
+    public Demo(){
+        pc= new PropertyController();
+        lc= new LeaseController();
+        tc= new TenantController();
+    }
+    
     @Override // Override the start method in the Application class
     public void start(Stage primaryStage) {
         // Create a scene and place a button in the scene
@@ -46,6 +65,48 @@ public class Demo extends Application {
         menu2.getItems().add(menuItem5);
         menu2.getItems().add(menuItem6);
 
+        GridPane tenantGrid = new GridPane();
+        tenantGrid.setHgap(10);
+        tenantGrid.setVgap(10);
+        tenantGrid.setPadding(new Insets(10, 10, 10, 10));
+
+        Label tenantidLabel = new Label("Enter Tenant ID:");
+        TextField tenantidField = new TextField();
+        tenantGrid.add(tenantidLabel, 0, 0);
+        tenantGrid.add(tenantidField, 1, 0);
+
+        Label tenantNameLabel = new Label("Enter Tenant Name :");
+        TextField tenantNameField = new TextField();
+        tenantGrid.add(tenantNameLabel, 0, 1);
+        tenantGrid.add(tenantNameField, 1, 1);
+
+        Button tenantSubmitButton = new Button("Submit");
+        tenantGrid.add(tenantSubmitButton, 1, 3);
+
+        // Create the modal window
+        Stage tenantModal = new Stage();
+        tenantModal.initModality(Modality.APPLICATION_MODAL);
+        tenantModal.initOwner(primaryStage);
+        tenantModal.setTitle("Tenant details");
+        tenantModal.setScene(new Scene(tenantGrid, 400, 400));
+
+        // Show the modal window when the "Open" menu item is clicked
+        menuItem5.setOnAction(event -> {
+            tenantModal.showAndWait();
+        });
+
+        //when we click submit button on tenant form
+        tenantSubmitButton.setOnAction(event -> {
+            String tenantID =tenantidField.getText();
+            String tenantName =tenantNameField.getText();
+
+            tc.addTenant(new TenantModel(tenantName));
+
+
+            tenantidField.clear();
+            tenantNameField.clear();
+
+        });
 
         //Add Tenant
         Menu menu3 = new Menu("Tenant");
@@ -135,7 +196,7 @@ public class Demo extends Application {
         submitButton.setOnAction(event -> {
             String apartmentNumber =apartmentField.getText();
             String plotNumber =plotField.getText();
-            String streetNumber =streetField.getText();
+            String streetName =streetField.getText();
             String city =cityField.getText();
             String postalCode =postalField.getText();
             String country =countryField.getText();
@@ -143,7 +204,9 @@ public class Demo extends Application {
             int noOfbathrooms =Integer.valueOf(noOfbathroomsField.getText());
             double squareFoot =Double.valueOf(squarefootField.getText());
 
-
+            Property apt = new ApartmentModel(apartmentNumber,plotNumber,streetName,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
+            pc.addApartment(apt);
+            
             apartmentField.clear();
             plotField.clear();
             streetField.clear();
@@ -153,6 +216,8 @@ public class Demo extends Application {
             noOfbathroomsField.clear();
             noOfbedroomsField.clear();
             squarefootField.clear();
+
+            apartmentModal.close();
         });
 
         //Condo details form
@@ -161,9 +226,9 @@ public class Demo extends Application {
         condoGrid.setVgap(10);
         condoGrid.setPadding(new Insets(10, 10, 10, 10));
 
-        Label concdoUnitLabel = new Label("Enter Unit number:");
+        Label condoUnitLabel = new Label("Enter Unit number:");
         TextField condoUnitField = new TextField();
-        condoGrid.add(concdoUnitLabel, 0, 0);
+        condoGrid.add(condoUnitLabel, 0, 0);
         condoGrid.add(condoUnitField, 1, 0);
 
         Label condoPlotLabel = new Label("Enter Plot number:");
@@ -206,9 +271,6 @@ public class Demo extends Application {
         condoGrid.add(condosquarefootLabel, 0, 8);
         condoGrid.add(condosquarefootField, 1, 8);
 
-        Button condoSubmitButton = new Button("Submit");
-        condoGrid.add(condoSubmitButton, 1, 9);
-
         // Create the modal window
         Stage condoModal = new Stage();
         condoModal.initModality(Modality.APPLICATION_MODAL);
@@ -221,7 +283,37 @@ public class Demo extends Application {
             condoModal.showAndWait();
         });
 
+        Button condoSubmitButton = new Button("Submit");
+        condoGrid.add(condoSubmitButton, 1, 9);
 
+      
+
+        condoSubmitButton.setOnAction(event -> {
+            String unitNumber =condoUnitField.getText();
+            String plotNumber =condoPlotField.getText();
+            String streetName =condoStreetField.getText();
+            String city = condoCityField.getText();
+            String postalCode =condoPostalField.getText();
+            String country =condoCountryField.getText();
+            int noOfbedrooms =Integer.valueOf(condonoOfbedroomsField.getText());
+            int noOfbathrooms =Integer.valueOf(condonoOfbathroomsField.getText());
+            double squareFoot =Double.valueOf(condosquarefootField.getText());
+
+            Property apt = new CondoModel(unitNumber,plotNumber,streetName,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
+            pc.addCondo(apt);
+
+            apartmentField.clear();
+            plotField.clear();
+            streetField.clear();
+            cityField.clear();
+            postalField.clear();
+            countryField.clear();
+            noOfbathroomsField.clear();
+            noOfbedroomsField.clear();
+            squarefootField.clear();
+
+            condoModal.close();
+        });
 
         //House details form
         GridPane houseGrid = new GridPane();
@@ -286,6 +378,31 @@ public class Demo extends Application {
             houseModal.showAndWait();
         });
 
+        houseSubmitButton.setOnAction(event -> {
+            String streetName =houseStreetField.getText();
+            String plotNumber =housePlotField.getText();
+            String city = houseCityField.getText();
+            String postalCode =housePostalField.getText();
+            String country =houseCountryField.getText();
+            int noOfbedrooms =Integer.valueOf(housenoOfbedroomsField.getText());
+            int noOfbathrooms =Integer.valueOf(housenoOfbathroomsField.getText());
+            double squareFoot =Double.valueOf(housesquarefootField.getText());
+
+            Property apt = new HouseModel(streetName,plotNumber,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
+            pc.addHouse(apt);
+
+
+            plotField.clear();
+            streetField.clear();
+            cityField.clear();
+            postalField.clear();
+            countryField.clear();
+            noOfbathroomsField.clear();
+            noOfbedroomsField.clear();
+            squarefootField.clear();
+
+            houseModal.close();
+        });
 
 
         //Rent a property
@@ -345,7 +462,7 @@ public class Demo extends Application {
         });
         //when we click submit button for apartment form
         submitLease.setOnAction(event -> {
-            int selectedIndex = chooseProperty.getSelectionModel().getSelectedIndex();
+           // int selectedIndex = chooseProperty.getSelectionModel().getSelectedIndex();
             Object selectedItem = chooseProperty.getSelectionModel().getSelectedItem();
             String propertyType = (String) selectedItem;
             String propertyID =propertyIDField.getText();
@@ -355,13 +472,20 @@ public class Demo extends Application {
             String eDate =endDateField.getText();
             Calendar endDate = CustomDate.getDate(eDate);
 
-            double rentAmount = Double.parseDouble(rentAmountField.getText());
+            double amount = Double.parseDouble(rentAmountField.getText());
+
+            LeaseModel newLease= new LeaseModel(propertyID,tenantID,startDate,endDate,amount);
+
+            pc.rentProperty(propertyType,newLease.getPropertyID(), newLease.getTenantID());
+            tc.addLeaseToTenant(newLease);
 
             propertyIDField.clear();
             tenantIDField.clear();
             startDateField.clear();
             endDateField.clear();
             rentAmountField.clear();
+
+            rentAPropModal.close();
         });
 
 
@@ -419,7 +543,7 @@ public class Demo extends Application {
         Stage interestedPropModal = new Stage();
         interestedPropModal.initModality(Modality.APPLICATION_MODAL);
         interestedPropModal.initOwner(primaryStage);
-        interestedPropModal.setTitle("Terminate a lease");
+        interestedPropModal.setTitle("Interested Properties");
         interestedPropModal.setScene(new Scene(showInterestedPropGrid, 400, 400));
 
         // Show the modal window when the "Open" menu item is clicked
@@ -429,6 +553,8 @@ public class Demo extends Application {
         //when we click submit button for apartment form
         subInterestedProp.setOnAction(event -> {
             String tenantID =showInterestedPropTenantIDField.getText();
+            ArrayList<String> iProperties=  tc.getInterestedProperties(tenantID);
+
             termLeaseIDField.clear();
 
             Stage showProp = new Stage();
@@ -437,10 +563,16 @@ public class Demo extends Application {
             showProp.setTitle("Display Interested Leases");
 
             ListView listView = new ListView();
+            listView.setPlaceholder(new Label("Oops ! Its empty here !"));
 
-            listView.getItems().add("Item 1");
-            listView.getItems().add("Item 2");
-            listView.getItems().add("Item 3");
+            
+
+
+            for (String property:iProperties
+                 ) {
+                listView.getItems().add(property);
+            }
+
 
             HBox hbox = new HBox(listView);
 
@@ -484,16 +616,20 @@ public class Demo extends Application {
             termLeaseIDField.clear();
             System.out.println(tenantID);
 
+
             Stage showProp = new Stage();
             showProp.initModality(Modality.APPLICATION_MODAL);
             showProp.initOwner(primaryStage);
             showProp.setTitle("Display Notifications");
 
             ListView listView = new ListView();
+            listView.setPlaceholder(new Label("Oops ! Its empty here !"));
 
-            listView.getItems().add("Item 1");
-            listView.getItems().add("Item 2");
-            listView.getItems().add("Item 3");
+            ArrayList<String> iNotifications=  tc.getNotificationList(tenantID);
+            for (String n:iNotifications
+            ) {
+                listView.getItems().add(n);
+            }
 
             HBox hbox = new HBox(listView);
 
@@ -654,6 +790,10 @@ public class Demo extends Application {
         propertyTab.setContent(propertyView);
         tenantTab.setContent(tenantView);
         leasesTab.setContent(leaseView);
+
+        propertyTab.setClosable(false);
+        tenantTab.setClosable(false);
+        leasesTab.setClosable(false);
 
 
 //        Tab tab3 = new Tab("Leases");

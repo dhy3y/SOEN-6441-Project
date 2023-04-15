@@ -20,8 +20,8 @@ public class LeaseController{
         view = new LeaseView() ;
     }
 
-    public LeaseModel addLease(String propertyID){
-        LeaseModel newLease = view.getLeaseDetails(propertyID);
+    public LeaseModel addLease(LeaseModel newLease){
+//        LeaseModel newLease = view.getLeaseDetails(propertyID);
         dbInstance.addLease(newLease);
         System.out.println("\n New Lease Created");
         return newLease;
