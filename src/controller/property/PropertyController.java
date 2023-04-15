@@ -99,6 +99,19 @@ public class PropertyController {
         }
     }
 
+     public  ArrayList<Property> getAllProperties(){
+
+        ArrayList<Property> pp= new ArrayList<>();
+         for (String key1 : dbInstance.getPropertyDetails().keySet()) {
+             HashMap<String, Property> innerMap = dbInstance.getPropertyDetails().get(key1);
+             for (String key2 : innerMap.keySet()) {
+                   pp.add( innerMap.get(key2));
+                 // Do something with the property
+             }
+         }
+
+         return pp;
+     }
 
     public void notifyInterestedTenants(String propertyID) {
         HashMap<String, HashMap<String, Property>> propertyList = dbInstance.getProperties();
