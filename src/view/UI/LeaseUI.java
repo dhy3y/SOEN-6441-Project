@@ -53,4 +53,16 @@ public class LeaseUI {
 
         return leaseView;
     }
+
+    public static void onCallEventListener() {
+
+    }
+
+    public static void addLease() {
+
+    }
+
+    public static void terminateLease() {
+
+    }
 }

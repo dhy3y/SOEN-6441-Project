@@ -33,4 +33,20 @@ public class TenantUI {
 
         return tenantView;
     }
+
+    public static void onCallEventListener() {
+
+    }
+
+    public static void addTenant() {
+
+    }
+
+    public static void showInterestedProperty() {
+
+    }
+
+    public static void showNotifications() {
+
+    }
 }

@@ -62,4 +62,25 @@ public class PropertyUI {
 
         return propertyView;
     }
+
+    public static void onCallEventListener() {
+
+    }
+
+    public static void addApartment() {
+
+    }
+
+    public static void addCondo() {
+
+    }
+
+    public static void addHouse() {
+
+    }
+
+    public static void rentAProperty() {
+
+    }
+
 }
