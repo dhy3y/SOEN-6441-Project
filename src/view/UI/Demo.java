@@ -142,6 +142,8 @@ public class Demo extends Application {
             int noOfbedrooms =Integer.valueOf(noOfbedroomsField.getText());
             int noOfbathrooms =Integer.valueOf(noOfbathroomsField.getText());
             double squareFoot =Double.valueOf(squarefootField.getText());
+
+
             apartmentField.clear();
             plotField.clear();
             streetField.clear();
