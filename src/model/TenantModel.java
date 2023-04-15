@@ -6,6 +6,7 @@ public class TenantModel {
 
     private String tenantName;
     ArrayList<String> ownedLeases;
+    private String tenantID;
     ArrayList<String> interestedProperties;
     ArrayList<String> notificationList;
 
@@ -71,5 +72,13 @@ public class TenantModel {
                 ", interestedProperties=" + interestedProperties +
                 ", notificationList=" + notificationList +
                 '\n';
+    }
+
+    public String getTenantID() {
+        return tenantID;
+    }
+
+    public void setTenantID(String tenantID) {
+        this.tenantID = tenantID;
     }
 }

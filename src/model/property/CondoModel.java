@@ -16,7 +16,7 @@ public class CondoModel extends Property{
     }
 
     @Override
-    String generateAddress() {
+    public String generateAddress() {
         return unitNumber+"-"+ plotNumber +", "+streetName+", " +city+", "+postalCode+", "+country;
     }
 

@@ -18,7 +18,7 @@ public class HouseModel extends Property{
     }
 
     @Override
-    String generateAddress() {
+    public String generateAddress() {
         return  plotNumber +", "+streetName+", " +city+", "+postalCode+", "+country;
     }
 

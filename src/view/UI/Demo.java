@@ -4,39 +4,36 @@ import controller.LeaseController;
 import controller.TenantController;
 import controller.property.PropertyController;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.LeaseModel;
 import model.TenantModel;
 import model.property.ApartmentModel;
 import model.property.CondoModel;
 import model.property.HouseModel;
-import model.property.Property;
-import set.Person;
+import set.Property;
 import utils.CustomDate;
 
-import java.rmi.dgc.Lease;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Demo extends Application {
 
-    PropertyController pc;
-    LeaseController lc;
-    TenantController tc;
+    private static PropertyController pc;
+    private static LeaseController lc;
+    private static TenantController tc;
+    private static TableView propertyView;
+
+    private static TableView tenantView;
+    private static TableView leaseView;
+
     public Demo(){
         pc= new PropertyController();
         lc= new LeaseController();
@@ -65,6 +62,7 @@ public class Demo extends Application {
         menu2.getItems().add(menuItem5);
         menu2.getItems().add(menuItem6);
 
+        //add Tenant
         GridPane tenantGrid = new GridPane();
         tenantGrid.setHgap(10);
         tenantGrid.setVgap(10);
@@ -106,9 +104,13 @@ public class Demo extends Application {
             tenantidField.clear();
             tenantNameField.clear();
 
+            updateTenantView();
+            tenantView.refresh();
+
+            tenantModal.close();
         });
 
-        //Add Tenant
+
         Menu menu3 = new Menu("Tenant");
         MenuItem menuItem8 = new MenuItem("Show interested Property");
         MenuItem menuItem9 = new MenuItem("Show Notifications");
@@ -204,7 +206,7 @@ public class Demo extends Application {
             int noOfbathrooms =Integer.valueOf(noOfbathroomsField.getText());
             double squareFoot =Double.valueOf(squarefootField.getText());
 
-            Property apt = new ApartmentModel(apartmentNumber,plotNumber,streetName,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
+            model.property.Property apt = new ApartmentModel(apartmentNumber,plotNumber,streetName,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
             pc.addApartment(apt);
             
             apartmentField.clear();
@@ -218,6 +220,9 @@ public class Demo extends Application {
             squarefootField.clear();
 
             apartmentModal.close();
+
+            updatePropertyView();
+            propertyView.refresh();
         });
 
         //Condo details form
@@ -299,7 +304,7 @@ public class Demo extends Application {
             int noOfbathrooms =Integer.valueOf(condonoOfbathroomsField.getText());
             double squareFoot =Double.valueOf(condosquarefootField.getText());
 
-            Property apt = new CondoModel(unitNumber,plotNumber,streetName,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
+            model.property.Property apt = new CondoModel(unitNumber,plotNumber,streetName,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
             pc.addCondo(apt);
 
             apartmentField.clear();
@@ -312,6 +317,8 @@ public class Demo extends Application {
             noOfbedroomsField.clear();
             squarefootField.clear();
 
+            updatePropertyView();
+            propertyView.refresh();
             condoModal.close();
         });
 
@@ -388,7 +395,7 @@ public class Demo extends Application {
             int noOfbathrooms =Integer.valueOf(housenoOfbathroomsField.getText());
             double squareFoot =Double.valueOf(housesquarefootField.getText());
 
-            Property apt = new HouseModel(streetName,plotNumber,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
+            model.property.Property apt = new HouseModel(streetName,plotNumber,city,postalCode,country,noOfbedrooms,noOfbathrooms,squareFoot);
             pc.addHouse(apt);
 
 
@@ -401,6 +408,8 @@ public class Demo extends Application {
             noOfbedroomsField.clear();
             squarefootField.clear();
 
+            updatePropertyView();
+            propertyView.refresh();
             houseModal.close();
         });
 
@@ -497,6 +506,8 @@ public class Demo extends Application {
             endDateField.clear();
             rentAmountField.clear();
 
+            updateLeaseView();
+            leaseView.refresh();
             rentAPropModal.close();
         });
 
@@ -532,13 +543,18 @@ public class Demo extends Application {
         //when we click submit button for apartment form
         submitTermLease.setOnAction(event -> {
             String leaseID =termLeaseIDField.getText();
-            System.out.println(leaseID);
 
             LeaseModel oldLease = lc.removeLease(leaseID);
+//            System.out.println(oldLease);
             tc.removeLeaseFromTenant(oldLease);
+//            System.out.println(tc.getAllTenants());
             pc.vacantProperty(oldLease.getPropertyID());
+//            System.out.println(pc.getAllProperties());
 
             termLeaseIDField.clear();
+
+            updateLeaseView();
+            leaseView.refresh();
 
             termLeaseModal.close();
         });
@@ -664,107 +680,66 @@ public class Demo extends Application {
 
 
         //Tableview for Property
-        TableView propertyView = new TableView();
+        propertyView = new TableView();
 
-        TableColumn<Person, String> column1 =
-                new TableColumn<>("Apartment number");
+        TableColumn<Property, String> column10 =
+                new TableColumn<>("Id");
+        column10.setCellValueFactory(
+                new PropertyValueFactory<>("id"));
+
+
+        TableColumn<Property, String> column1 =
+                new TableColumn<>("Address");
         column1.setCellValueFactory(
-                new PropertyValueFactory<>("Apartment number"));
+                new PropertyValueFactory<>("address"));
 
-        TableColumn<Person, String> column10 =
-                new TableColumn<>("Unit number");
-        column1.setCellValueFactory(
-                new PropertyValueFactory<>("Unit number"));
-
-        TableColumn<Person, String> column2 =
-                new TableColumn<>("Plot number");
-
-        column2.setCellValueFactory(
-                new PropertyValueFactory<>("Plot number"));
-
-        TableColumn<Person, String> column3 =
-                new TableColumn<>("Street name");
-
-        column3.setCellValueFactory(
-                new PropertyValueFactory<>("Street name"));
-
-        TableColumn<Person, String> column4 =
-                new TableColumn<>("City");
-
-        column4.setCellValueFactory(
-                new PropertyValueFactory<>("City"));
-
-        TableColumn<Person, String> column5 =
-                new TableColumn<>("Postal Code");
-
-        column5.setCellValueFactory(
-                new PropertyValueFactory<>("Postal Code"));
-
-        TableColumn<Person, String> column6 =
-                new TableColumn<>("Country");
-
-        column6.setCellValueFactory(
-                new PropertyValueFactory<>("Country"));
-
-        TableColumn<Person, String> column7 =
+        TableColumn<Property, String> column7 =
                 new TableColumn<>("Number of bedrooms");
 
         column7.setCellValueFactory(
-                new PropertyValueFactory<>("Number of bedrooms"));
+                new PropertyValueFactory<>("numberOfBedroom"));
 
-        TableColumn<Person, String> column8 =
+        TableColumn<Property, String> column8 =
                 new TableColumn<>("Number of bathrooms");
 
         column8.setCellValueFactory(
-                new PropertyValueFactory<>("Number of bathrooms"));
+                new PropertyValueFactory<>("numberOfBathroom"));
 
-        TableColumn<Person, String> column9 =
+        TableColumn<Property, String> column9 =
                 new TableColumn<>("Square Foot");
 
         column9.setCellValueFactory(
-                new PropertyValueFactory<>("Square Foot"));
+                new PropertyValueFactory<>("squareFoot"));
 
-        column1.setPrefWidth(200);
-        column2.setPrefWidth(150);
-        column3.setPrefWidth(150);
-        column4.setPrefWidth(150);
-        column5.setPrefWidth(150);
-        column6.setPrefWidth(150);
+        column10.setPrefWidth(100);
+        column1.setPrefWidth(500);
         column7.setPrefWidth(200);
         column8.setPrefWidth(200);
         column9.setPrefWidth(150);
-        column10.setPrefWidth(150);
+//        column10.setPrefWidth(150);
 
-
-        propertyView.getColumns().add(column1);
         propertyView.getColumns().add(column10);
-        propertyView.getColumns().add(column2);
-        propertyView.getColumns().add(column3);
-        propertyView.getColumns().add(column4);
-        propertyView.getColumns().add(column5);
-        propertyView.getColumns().add(column6);
+        propertyView.getColumns().add(column1);
+
         propertyView.getColumns().add(column7);
         propertyView.getColumns().add(column8);
         propertyView.getColumns().add(column9);
 
 
-        ArrayList<Property> allProperties = pc.getAllProperties();
-
-        for(Property p : allProperties){
-            propertyView.getItems().add(p);}
 
 
-        TableView tenantView = new TableView();
 
-        TableColumn<Person, String> tenantColumn1 =
+        tenantView = new TableView();
+
+        TableColumn<TenantModel, String> tenantColumn1 =
                 new TableColumn<>("Tenant ID ");
         tenantColumn1.setCellValueFactory(
-                new PropertyValueFactory<>("Tenant ID"));
+                new PropertyValueFactory<>("tenantID"));
 
-        TableColumn<Person, String> tenantColumn2 =
+        TableColumn<TenantModel, String> tenantColumn2 =
                 new TableColumn<>("Tenant Name");
         tenantColumn2.setCellValueFactory(
-                new PropertyValueFactory<>("Tenant Name"));
+                new PropertyValueFactory<>("tenantName"));
 
 
 
@@ -775,29 +750,35 @@ public class Demo extends Application {
 
         tenantView.getColumns().add(tenantColumn1);
         tenantView.getColumns().add(tenantColumn2);
+        tenantView.getSortOrder().add(tenantColumn1);
 
         //Add Lease table view
-        TableView leaseView = new TableView();
+        leaseView = new TableView();
 
-        TableColumn<Person, String> leaseColumn1 =
+        TableColumn<LeaseModel, String> leaseColumn1 =
                 new TableColumn<>("Tenant ID ");
         leaseColumn1.setCellValueFactory(
-                new PropertyValueFactory<>("Tenant ID"));
+                new PropertyValueFactory<>("tenantID"));
 
-        TableColumn<Person, String> leaseColumn2 =
+        TableColumn<LeaseModel, String> leaseColumn5 =
+                new TableColumn<>("Property ID ");
+        leaseColumn5.setCellValueFactory(
+                new PropertyValueFactory<>("propertyID"));
+
+        TableColumn<LeaseModel, Calendar> leaseColumn2 =
                 new TableColumn<>("Start Date");
         leaseColumn2.setCellValueFactory(
-                new PropertyValueFactory<>("Start Date"));
+                new PropertyValueFactory<>("startDate"));
 
-        TableColumn<Person, String> leaseColumn3 =
+        TableColumn<LeaseModel, Calendar> leaseColumn3 =
                 new TableColumn<>("End Date");
         leaseColumn3.setCellValueFactory(
-                new PropertyValueFactory<>("End Date"));
+                new PropertyValueFactory<>("endDate"));
 
-        TableColumn<Person, String> leaseColumn4 =
+        TableColumn<LeaseModel, String> leaseColumn4 =
                 new TableColumn<>("Amount");
         leaseColumn4.setCellValueFactory(
-                new PropertyValueFactory<>("Amount"));
+                new PropertyValueFactory<>("amount"));
 
        leaseColumn1.setPrefWidth(150);
         leaseColumn2.setPrefWidth(150);
@@ -805,10 +786,12 @@ public class Demo extends Application {
         leaseColumn4.setPrefWidth(150);
 
 
+        leaseView.getColumns().add(leaseColumn5);
         leaseView.getColumns().add(leaseColumn1);
         leaseView.getColumns().add(leaseColumn2);
         leaseView.getColumns().add(leaseColumn3);
         leaseView.getColumns().add(leaseColumn4);
+        leaseView.getSortOrder().add(leaseColumn1);
 
         TabPane tabPane = new TabPane();
         Tab propertyTab = new Tab("Properties");
@@ -847,6 +830,37 @@ public class Demo extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static void updatePropertyView() {
+        ArrayList<model.property.Property> allProperties = pc.getAllProperties();
+
+        propertyView.getItems().clear();
+
+        for(model.property.Property p : allProperties){
+            propertyView.getItems().add(p);}
+    }
+
+    public static void updateTenantView() {
+        ArrayList<TenantModel> allTenants = tc.getAllTenants();
+
+        tenantView.getItems().clear();
+
+        for(TenantModel p : allTenants){
+            tenantView.getItems().add(p);}
+
+        tenantView.sort();
+    }
+
+    public static void updateLeaseView() {
+        ArrayList<LeaseModel> alLeases = lc.getAllLeases();
+
+        leaseView.getItems().clear();
+
+        for(LeaseModel p : alLeases){
+            leaseView.getItems().add(p);}
+
+        leaseView.sort();
     }
 }
 

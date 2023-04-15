@@ -3,6 +3,7 @@ package controller;
 import database.RentalDatabase;
 import model.LeaseModel;
 import model.TenantModel;
+import model.property.Property;
 import view.TenantView;
 
 import java.util.ArrayList;
@@ -65,10 +66,22 @@ public class TenantController {
         String propertyID = lease.getPropertyID();
         HashMap<String, TenantModel> tenantList = dbInstance.getTenants(); 
         tenantList.get(lease.getTenantID()).removeOwnedLease(propertyID);
+        System.out.println("Lease removed from tenant");
     }
 
     public void addInterestedProperty(String propertyID, String tenantID) {
         HashMap<String, TenantModel> tenantList = dbInstance.getTenants();
         tenantList.get(tenantID).setInterestedProperties(propertyID);
+    }
+
+    public ArrayList<TenantModel> getAllTenants() {
+
+        ArrayList<TenantModel> pp= new ArrayList<>();
+        for (String key2 : dbInstance.getTenants().keySet()) {
+            pp.add( dbInstance.getTenants().get(key2));
+            // Do something with the property
+        }
+
+        return pp;
     }
 }

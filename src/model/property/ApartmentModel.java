@@ -17,7 +17,7 @@ public class ApartmentModel extends Property {
 
 
     @Override
-    String generateAddress() {
+    public String generateAddress() {
         return apartmentNumber+"-"+ plotNumber +", "+streetName+", " +city+", "+postalCode+", "+country;
     }
 

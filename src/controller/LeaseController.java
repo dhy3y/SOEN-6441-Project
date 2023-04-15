@@ -4,6 +4,8 @@ import database.RentalDatabase;
 import model.LeaseModel;
 import model.TenantModel;
 import view.LeaseView;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -49,6 +51,17 @@ public class LeaseController{
                 view.printLeaseDetails(entry.getKey(),entry.getValue());
             }
         }
+    }
+
+    public ArrayList<LeaseModel> getAllLeases() {
+
+        ArrayList<LeaseModel> pp= new ArrayList<>();
+        for (String key2 : dbInstance.getLeases().keySet()) {
+            pp.add( dbInstance.getLeases().get(key2));
+            // Do something with the property
+        }
+
+        return pp;
     }
 
     

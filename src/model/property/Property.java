@@ -4,13 +4,21 @@ import java.util.ArrayList;
 
 public abstract class Property {
 
+
     protected String streetName;
+
+
+
+    protected String id;
     protected String plotNumber;
     protected String city;
     protected String postalCode;
     protected String country;
     protected Boolean rented;
     protected ArrayList<String> interestedTenants;
+
+
+    public String address;
 
 
 
@@ -22,6 +30,22 @@ public abstract class Property {
         this.country = country;
         this.rented=Boolean.FALSE;
         this.interestedTenants = new ArrayList<String>();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 
@@ -86,5 +110,5 @@ public abstract class Property {
         interestedTenants.remove(tenant);
     }
 
-    abstract String generateAddress();
+    public abstract String generateAddress();
 }

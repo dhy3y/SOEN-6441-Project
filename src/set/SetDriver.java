@@ -5,9 +5,9 @@ public class SetDriver {
         Set<Identifiable> mySet = new Set<>();
 
         // Add some elements to the set
-        mySet.add(new Person(1, "Alice"));
-        mySet.add(new Person(2, "Bob"));
-        mySet.add(new Person(3, "Charlie"));
+        mySet.add(new Property(1, "Alice"));
+        mySet.add(new Property(2, "Bob"));
+        mySet.add(new Property(3, "Charlie"));
         mySet.add(new Number(4, 42));
         mySet.add(new Number(5, 13));
 
@@ -29,11 +29,11 @@ public class SetDriver {
 
         // Create a second set with the same elements as the first
         Set<Identifiable> otherSet = new Set<>();
-        otherSet.add(new Person(1, "Alice"));
-        otherSet.add(new Person(3, "Charlie"));
+        otherSet.add(new Property(1, "Alice"));
+        otherSet.add(new Property(3, "Charlie"));
         otherSet.add(new Number(4, 42));
         otherSet.add(new Number(5, 13));
-        otherSet.add(new Person(2, "Bob")); // This element is added in a different order
+        otherSet.add(new Property(2, "Bob")); // This element is added in a different order
 
         // Test if the two sets are equal
         System.out.println("Are the two sets equal? " + mySet.equals(otherSet));

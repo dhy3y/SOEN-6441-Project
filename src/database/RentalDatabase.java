@@ -27,6 +27,8 @@ public class RentalDatabase {
             HashMap<String, Property> apartment = new HashMap<>();
             String id = getPropertyID("APT");
             apartment.put(id, p1);
+            p1.setAddress(p1.generateAddress());
+            p1.setId(id);
             propertyDetails.put("APT", apartment);
             System.out.println("Apartment added. ID : " + id);
         }
@@ -34,6 +36,8 @@ public class RentalDatabase {
             HashMap<String, Property> condo = new HashMap<>();
             String id = getPropertyID("CON");
             condo.put(id, p1);
+            p1.setId(id);
+            p1.setAddress(p1.generateAddress());
             propertyDetails.put("CON", condo);
             System.out.println("Condo added. ID : " + id);
         }
@@ -41,6 +45,8 @@ public class RentalDatabase {
             HashMap<String, Property> house = new HashMap<>();
             String id = getPropertyID("HOU");
             house.put(id, p1);
+            p1.setId(id);
+            p1.setAddress(p1.generateAddress());
             propertyDetails.put("HOU", house);
             System.out.println("House added. ID : " + id);
         }
@@ -54,8 +60,10 @@ public class RentalDatabase {
 
     public void addTenant(TenantModel t1) {
         String newTenantId=getTenantID();
+        t1.setTenantID(newTenantId);
         tenantDetails.put(newTenantId, t1);
         System.out.println("Tenant Added. ID : " + newTenantId);
+//        System.out.println(tenantDetails);
     }
 
     public  HashMap<String, HashMap<String, Property>> getPropertyDetails() {
@@ -78,6 +86,7 @@ public class RentalDatabase {
         if(propertyDetails.get(type) == null) {
             return type.substring(0,1) + 1;
         }
+        System.out.println(propertyDetails.get(type).size());
         return type.substring(0,1) + (propertyDetails.get(type).size()+1) ;
     }
 
